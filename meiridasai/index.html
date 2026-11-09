@@ -1,0 +1,1071 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>每日大赛r星官网 - 赛道解析与参赛指南</title>
+  <meta name="description" content="每日大赛r星官网聚合赛事报名、竞速榜单、载具调校、越野路线与社区实录，提供每日挑战关卡、速通规则和多人对抗数据，适合竞速玩家与开放世界爱好者参考。">
+  <meta name="keywords" content="每日挑战赛道, 载具调校, 速通竞速, 开放世界赛事, 越野路线">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%23f5a623'/%3E%3Cpath d='M10 20 L16 8 L22 20 Z' fill='%231a1a2e'/%3E%3Ccircle cx='16' cy='23' r='3' fill='%231a1a2e'/%3E%3C/svg%3E">
+  <style>
+    :root {
+      --bg: #0f0f16;
+      --panel: #1a1a26;
+      --panel-2: #222233;
+      --ink: #e8e8f0;
+      --ink-2: #a8a8bc;
+      --ink-3: #6c6c84;
+      --accent: #f5a623;
+      --accent-2: #ff5e5e;
+      --accent-3: #4ecdc4;
+      --border: #2e2e42;
+      --radius: 10px;
+      --shadow: 0 6px 24px rgba(0,0,0,0.45);
+      --announce-h: 38px;
+      --header-h: 62px;
+      --font: "Segoe UI", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-padding-top: calc(var(--announce-h) + var(--header-h) + 12px); }
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.65;
+      font-size: 15px;
+      overflow-x: hidden;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { color: #ffc85e; }
+    img { display: block; max-width: 100%; }
+    button { font-family: inherit; cursor: pointer; }
+
+    /* 吸顶公告条 */
+    .announce {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--announce-h);
+      background: linear-gradient(90deg, #2a1a00, #3d2a00);
+      border-bottom: 1px solid #6b4a00;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      color: #ffd98a;
+      padding: 0 16px;
+      gap: 8px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .announce strong { color: var(--accent); }
+
+    /* 吸顶页头 */
+    .header {
+      position: sticky;
+      top: var(--announce-h);
+      z-index: 99;
+      height: var(--header-h);
+      background: rgba(15,15,22,0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      gap: 20px;
+    }
+    .brand { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+    .brand svg { width: 32px; height: 32px; }
+    .brand-text {
+      font-weight: 800;
+      font-size: 18px;
+      color: var(--ink);
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+    }
+    .brand-text em { color: var(--accent); font-style: normal; }
+    .nav-main {
+      display: flex;
+      gap: 4px;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .nav-main::-webkit-scrollbar { display: none; }
+    .nav-main a {
+      color: var(--ink-2);
+      font-size: 14px;
+      padding: 6px 11px;
+      border-radius: 6px;
+      white-space: nowrap;
+      transition: 0.15s;
+    }
+    .nav-main a:hover, .nav-main a:focus-visible {
+      color: var(--ink);
+      background: var(--panel-2);
+      outline: 2px solid var(--accent);
+      outline-offset: -2px;
+    }
+    .header-actions { margin-left: auto; display: flex; gap: 8px; }
+    .btn-ghost {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--ink-2);
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 13px;
+    }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+    .btn-accent {
+      background: var(--accent);
+      border: none;
+      color: #1a1a00;
+      font-weight: 700;
+      padding: 6px 16px;
+      border-radius: 6px;
+      font-size: 13px;
+    }
+    .btn-accent:hover { background: #ffc85e; }
+
+    /* 容器 */
+    .container {
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* 首屏 */
+    .hero {
+      position: relative;
+      padding: 48px 0 36px;
+      overflow: hidden;
+      border-bottom: 1px solid var(--border);
+      background:
+        radial-gradient(ellipse at 80% 20%, rgba(245,166,35,0.12), transparent 55%),
+        radial-gradient(ellipse at 15% 80%, rgba(78,205,196,0.06), transparent 50%);
+    }
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 40px;
+      align-items: center;
+    }
+    .hero h1 {
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 900;
+      letter-spacing: 0.5px;
+      line-height: 1.2;
+      color: var(--ink);
+    }
+    .hero h1 .hl { color: var(--accent); }
+    .hero-desc {
+      margin-top: 16px;
+      font-size: 15px;
+      color: var(--ink-2);
+      max-width: 560px;
+      line-height: 1.8;
+    }
+    .hero-entries {
+      margin-top: 24px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .hero-visual {
+      position: relative;
+      height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero-visual svg { width: 100%; height: 100%; }
+
+    /* 三栏门户 */
+    .portal {
+      display: grid;
+      grid-template-columns: 178px minmax(0, 1fr) 250px;
+      gap: 28px;
+      padding: 32px 0 56px;
+      align-items: start;
+    }
+    .col-left { position: sticky; top: calc(var(--announce-h) + var(--header-h) + 16px); }
+    .channel-index {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 0;
+      overflow: hidden;
+    }
+    .channel-index h2 {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--ink-3);
+      padding: 0 16px 10px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 6px;
+    }
+    .channel-index a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      font-size: 13.5px;
+      color: var(--ink-2);
+      border-left: 2px solid transparent;
+    }
+    .channel-index a:hover, .channel-index a:focus-visible {
+      background: var(--panel-2);
+      color: var(--ink);
+      border-left-color: var(--accent);
+      outline: none;
+    }
+    .channel-index .dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent); flex-shrink: 0;
+    }
+    .channel-index .dot.teal { background: var(--accent-3); }
+    .channel-index .dot.red { background: var(--accent-2); }
+
+    /* 主内容 */
+    .main-col { min-width: 0; }
+    .section {
+      margin-bottom: 36px;
+    }
+    .section-h2 {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--ink);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-left: 4px solid var(--accent);
+      padding-left: 12px;
+    }
+    .section-h2 .sub {
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--ink-3);
+    }
+    .lead {
+      color: var(--ink-2);
+      font-size: 14.5px;
+      line-height: 1.85;
+      margin-bottom: 16px;
+    }
+    .lead p { margin-bottom: 10px; }
+
+    /* 精选卡片网格 */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: border-color 0.2s, transform 0.2s;
+      display: flex;
+      flex-direction: column;
+    }
+    .card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .card img { width: 100%; height: 130px; object-fit: cover; }
+    .card-body { padding: 12px 14px 14px; flex: 1; display: flex; flex-direction: column; }
+    .card-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 6px;
+      line-height: 1.4;
+    }
+    .card-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px; }
+    .tag {
+      font-size: 11px;
+      padding: 1px 8px;
+      border-radius: 20px;
+      background: var(--panel-2);
+      color: var(--ink-2);
+      border: 1px solid var(--border);
+    }
+    .tag.hot { background: rgba(245,166,35,0.15); color: var(--accent); border-color: rgba(245,166,35,0.3); }
+    .tag.teal { background: rgba(78,205,196,0.12); color: var(--accent-3); border-color: rgba(78,205,196,0.25); }
+    .card-desc { font-size: 13px; color: var(--ink-2); line-height: 1.6; flex: 1; }
+    .card-meta {
+      margin-top: 10px;
+      font-size: 11.5px;
+      color: var(--ink-3);
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .card-meta strong { color: var(--accent); font-weight: 600; }
+
+    /* 紧凑动态列表 */
+    .update-list { list-style: none; }
+    .update-list li {
+      display: flex;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px dashed var(--border);
+      font-size: 13.5px;
+      align-items: baseline;
+    }
+    .update-list li:last-child { border-bottom: none; }
+    .update-list .time {
+      font-size: 12px;
+      color: var(--ink-3);
+      flex-shrink: 0;
+      width: 82px;
+      font-variant-numeric: tabular-nums;
+    }
+    .update-list .name { color: var(--ink); font-weight: 600; flex-shrink: 0; }
+    .update-list .brief { color: var(--ink-2); }
+
+    /* 分类入口 */
+    .cat-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    .cat-item {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px 12px;
+      text-align: center;
+      transition: 0.2s;
+      display: block;
+    }
+    .cat-item:hover, .cat-item:focus-visible {
+      border-color: var(--accent);
+      background: var(--panel-2);
+      outline: none;
+    }
+    .cat-item .cat-name { font-size: 14px; font-weight: 700; color: var(--ink); }
+    .cat-item .cat-sub { font-size: 11px; color: var(--ink-3); margin-top: 2px; }
+
+    /* 深度解析 */
+    .deep {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+    }
+    .deep h3 {
+      font-size: 16px;
+      color: var(--accent);
+      margin: 18px 0 8px;
+    }
+    .deep h3:first-child { margin-top: 0; }
+    .deep p { color: var(--ink-2); font-size: 14px; line-height: 1.85; margin-bottom: 10px; }
+    .deep ul { margin: 8px 0 14px 20px; color: var(--ink-2); font-size: 14px; line-height: 1.8; }
+    .deep li { margin-bottom: 4px; }
+    .deep li strong { color: var(--ink); }
+
+    /* 体验指南 */
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .step {
+      display: flex;
+      gap: 14px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px 16px;
+    }
+    .step-num {
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #1a1a00;
+      font-weight: 800;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .step-body h4 { font-size: 14px; color: var(--ink); margin-bottom: 2px; }
+    .step-body p { font-size: 13px; color: var(--ink-2); }
+
+    /* FAQ */
+    .faq-item {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 8px;
+      overflow: hidden;
+    }
+    .faq-item summary {
+      padding: 12px 16px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--ink);
+      list-style: none;
+      position: relative;
+      padding-right: 36px;
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::after {
+      content: "+";
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 18px;
+      color: var(--accent);
+      font-weight: 400;
+    }
+    .faq-item[open] summary::after { content: "−"; }
+    .faq-item summary:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+    .faq-body { padding: 0 16px 14px; font-size: 13.5px; color: var(--ink-2); line-height: 1.75; }
+
+    /* 用户评论 */
+    .comments-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    .comment {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-size: 13px;
+    }
+    .comment .c-head { display: flex; justify-content: space-between; margin-bottom: 4px; }
+    .comment .c-name { font-weight: 700; color: var(--accent-3); font-size: 12.5px; }
+    .comment .c-time { font-size: 11px; color: var(--ink-3); }
+    .comment .c-text { color: var(--ink-2); line-height: 1.6; }
+
+    /* 相关资讯 */
+    .news-list { display: flex; flex-direction: column; gap: 12px; }
+    .news-item {
+      display: flex;
+      gap: 14px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 14px;
+      align-items: flex-start;
+    }
+    .news-item img { width: 100px; height: 70px; object-fit: cover; border-radius: 6px; flex-shrink: 0; }
+    .news-body h4 { font-size: 14px; color: var(--ink); margin-bottom: 2px; }
+    .news-body .n-date { font-size: 11.5px; color: var(--ink-3); margin-bottom: 4px; }
+    .news-body p { font-size: 12.5px; color: var(--ink-2); line-height: 1.55; }
+
+    /* 相关推荐标签索引 */
+    .rec-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .rec-tags a {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 6px 16px;
+      font-size: 13px;
+      color: var(--ink-2);
+      transition: 0.15s;
+    }
+    .rec-tags a:hover, .rec-tags a:focus-visible {
+      border-color: var(--accent);
+      color: var(--accent);
+      outline: none;
+    }
+
+    /* 补充：热门榜单 */
+    .rank-list { list-style: none; counter-reset: rank; }
+    .rank-list li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 13.5px;
+      counter-increment: rank;
+    }
+    .rank-list li::before {
+      content: counter(rank);
+      width: 22px; height: 22px;
+      background: var(--panel-2);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--ink-2);
+      flex-shrink: 0;
+    }
+    .rank-list li:nth-child(1)::before { background: var(--accent); color: #1a1a00; }
+    .rank-list li:nth-child(2)::before { background: #c0c0d0; color: #1a1a00; }
+    .rank-list li:nth-child(3)::before { background: #cd7f32; color: #1a1a00; }
+    .rank-list .r-name { color: var(--ink); font-weight: 600; flex: 1; }
+    .rank-list .r-score { color: var(--accent); font-size: 12px; font-weight: 700; }
+
+    /* 右辅助栏 */
+    .col-right { position: sticky; top: calc(var(--announce-h) + var(--header-h) + 16px); display: flex; flex-direction: column; gap: 18px; }
+    .aside-box {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+    }
+    .aside-box h3 {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--ink-3);
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    .hot-list { list-style: none; }
+    .hot-list li {
+      display: flex;
+      gap: 8px;
+      padding: 7px 0;
+      font-size: 13px;
+      align-items: baseline;
+      border-bottom: 1px dashed var(--border);
+    }
+    .hot-list li:last-child { border-bottom: none; }
+    .hot-list .h-idx { color: var(--accent); font-weight: 700; font-size: 12px; width: 18px; flex-shrink: 0; }
+    .hot-list .h-name { color: var(--ink-2); flex: 1; }
+    .hot-list .h-name:hover { color: var(--accent); }
+    .hot-list .h-val { color: var(--ink-3); font-size: 11px; flex-shrink: 0; }
+    .update-stream { list-style: none; }
+    .update-stream li { padding: 7px 0; font-size: 12.5px; border-bottom: 1px dashed var(--border); color: var(--ink-2); }
+    .update-stream li:last-child { border-bottom: none; }
+    .update-stream .us-time { color: var(--ink-3); font-size: 11px; }
+    .update-stream .us-name { color: var(--ink); font-weight: 600; }
+
+    /* 页尾 */
+    .footer {
+      border-top: 1px solid var(--border);
+      background: #0a0a10;
+      padding: 40px 0 28px;
+      margin-top: 20px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 28px;
+    }
+    .footer-brand p { color: var(--ink-3); font-size: 13px; margin-top: 10px; line-height: 1.7; max-width: 300px; }
+    .footer h4 { font-size: 13px; color: var(--ink-2); margin-bottom: 10px; }
+    .footer-links { list-style: none; }
+    .footer-links li { margin-bottom: 6px; }
+    .footer-links a { color: var(--ink-3); font-size: 12.5px; }
+    .footer-links a:hover { color: var(--accent); }
+    .footer-bottom {
+      margin-top: 28px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+      font-size: 11.5px;
+      color: var(--ink-3);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    /* 响应式 */
+    @media (max-width: 1024px) {
+      .portal { grid-template-columns: 1fr 240px; }
+      .col-left { display: none; }
+      .card-grid { grid-template-columns: repeat(2, 1fr); }
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-visual { height: 160px; order: -1; }
+      .cat-grid { grid-template-columns: repeat(4, 1fr); }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 740px) {
+      .portal { grid-template-columns: 1fr; gap: 0; padding-top: 20px; }
+      .col-right { position: static; margin-top: 28px; }
+      .card-grid { grid-template-columns: 1fr; }
+      .cat-grid { grid-template-columns: repeat(2, 1fr); }
+      .comments-grid { grid-template-columns: 1fr; }
+      .header { padding: 0 14px; gap: 10px; }
+      .brand-text { font-size: 15px; }
+      .nav-main { gap: 0; }
+      .nav-main a { padding: 6px 8px; font-size: 12.5px; }
+      .header-actions .btn-ghost { display: none; }
+      .container { padding: 0 14px; }
+      .hero { padding: 28px 0 20px; }
+      .hero h1 { font-size: 26px; }
+      .footer-grid { grid-template-columns: 1fr; gap: 18px; }
+      .news-item { flex-direction: column; }
+      .news-item img { width: 100%; height: 120px; }
+      .deep { padding: 16px; }
+    }
+    @media (max-width: 360px) {
+      .cat-grid { grid-template-columns: 1fr; }
+      .brand-text { font-size: 13px; }
+    }
+  </style>
+<script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+</head>
+<body>
+
+  <!-- 吸顶公告条 -->
+  <div class="announce">
+    <strong>11 月 8 日更新</strong> 本周新增 6 条速通赛道、3 辆调校载具档案，冬季越野赛报名 11 月 10 日截止
+  </div>
+
+  <!-- 吸顶页头 -->
+  <header class="header">
+    <div class="brand">
+      <svg viewBox="0 0 32 32" aria-hidden="true">
+        <circle cx="16" cy="16" r="15" fill="#f5a623"/>
+        <path d="M9 21 L16 7 L23 21 Z" fill="#1a1a2e"/>
+        <circle cx="16" cy="24" r="3.2" fill="#1a1a2e"/>
+      </svg>
+      <span class="brand-text">每日大赛<em>r星</em>官网</span>
+    </div>
+    <nav class="nav-main" aria-label="主题导航">
+      <a href="#overview">领域概览</a>
+      <a href="#picks">精选推荐</a>
+      <a href="#updates">最新动态</a>
+      <a href="#categories">分类入口</a>
+      <a href="#deep">深度解析</a>
+      <a href="#guide">体验指南</a>
+      <a href="#faq">常见问答</a>
+      <a href="#comments">玩家评论</a>
+      <a href="#news">相关资讯</a>
+      <a href="#recommend">延伸推荐</a>
+      <a href="#ranking">热门榜单</a>
+    </nav>
+    <div class="header-actions">
+      <button class="btn-ghost" type="button" onclick="document.getElementById('search-input').focus()">搜索</button>
+      <button class="btn-accent" type="button" onclick="alert('报名入口为示例功能，正式页面需接入赛事系统。')">报名入口</button>
+    </div>
+  </header>
+
+  <!-- 首屏 -->
+  <section class="hero">
+    <div class="container hero-inner">
+      <div>
+        <h1>每日大赛<span class="hl">r星</span>官网</h1>
+        <p class="hero-desc">
+          这里汇集每日挑战赛道的竞速规则、载具调校数据、越野路线图与玩家实录，覆盖圣安地列斯街头冲刺、佩里科岛两栖竞速、洛圣都环城耐力赛等具体赛事，适合开放世界竞速玩家、速通爱好者和车队组织者查阅。
+        </p>
+        <div class="hero-entries">
+          <a href="#picks" class="btn-accent" style="display:inline-block;padding:10px 22px;font-size:14px;">查看今日赛道</a>
+          <a href="#deep" class="btn-ghost" style="display:inline-block;padding:10px 22px;font-size:14px;">调校规则解析</a>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <svg viewBox="0 0 380 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="30" y="40" width="320" height="140" rx="14" fill="#1a1a26" stroke="#2e2e42" stroke-width="1.5"/>
+          <path d="M50 160 Q90 70 180 90 T330 150" stroke="#f5a623" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.9"/>
+          <path d="M50 160 Q90 70 180 90 T330 150" stroke="#f5a623" stroke-width="1.5" stroke-linecap="round" fill="none" stroke-dasharray="2 8"/>
+          <circle cx="180" cy="90" r="7" fill="#ff5e5e"/>
+          <circle cx="180" cy="90" r="14" stroke="#ff5e5e" stroke-width="1.5" opacity="0.5"/>
+          <circle cx="90" cy="128" r="5" fill="#4ecdc4"/>
+          <circle cx="280" cy="132" r="5" fill="#4ecdc4"/>
+          <rect x="56" y="52" width="56" height="18" rx="3" fill="#222233"/>
+          <text x="62" y="65" font-size="10" fill="#a8a8bc" font-family="monospace">00:42:18</text>
+          <rect x="270" y="52" width="60" height="18" rx="3" fill="#222233"/>
+          <text x="276" y="65" font-size="10" fill="#f5a623" font-family="monospace">1ST</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- 三栏门户 -->
+  <div class="container portal">
+
+    <!-- 左频道索引 -->
+    <aside class="col-left">
+      <nav class="channel-index" aria-label="频道索引">
+        <h2>赛道频道</h2>
+        <a href="#picks"><span class="dot"></span>街头冲刺</a>
+        <a href="#picks"><span class="dot teal"></span>两栖竞速</a>
+        <a href="#picks"><span class="dot red"></span>环城耐力</a>
+        <a href="#categories"><span class="dot"></span>载具调校</a>
+        <a href="#categories"><span class="dot teal"></span>越野路线</a>
+        <a href="#updates"><span class="dot red"></span>竞速榜单</a>
+        <a href="#deep"><span class="dot"></span>速通规则</a>
+        <a href="#guide"><span class="dot teal"></span>新人入门</a>
+        <a href="#news"><span class="dot"></span>赛事资讯</a>
+        <a href="#comments"><span class="dot red"></span>玩家社区</a>
+      </nav>
+    </aside>
+
+    <!-- 主内容 -->
+    <main class="main-col">
+
+      <!-- 1. 领域概览 -->
+      <section class="section" id="overview">
+        <h2 class="section-h2">竞速领域概览 <span class="sub">每日大赛 r星 方向</span></h2>
+        <div class="lead">
+          <p>每日大赛r星官网所对应的领域，是围绕开放世界竞速游戏形成的每日挑战赛事体系。玩家每天面对不同的赛道类型与载具限制，在同一套规则下完成速通、计时或对抗。当前主要包含五个方向：<strong>街头冲刺</strong>以城市干道为舞台，考验走线与刹车点；<strong>两栖竞速</strong>在陆地和近海之间切换，载具切换速度决定名次；<strong>环城耐力</strong>持续四到六圈，轮胎与燃油策略权重更高；<strong>越野路线</strong>涵盖沙漠、山地和泥地，悬挂调校成为关键变量；<strong>载具调校</strong>则贯穿所有赛道，同一辆车在不同赛道需要不同的齿轮比与下压力设置。</p>
+          <p>2026 年 11 月当前赛季的每日大赛，每日轮换三条赛道，其中一条为当日限定高倍率赛事。本周新增的“佩里科岛东岸两栖冲刺”和“好麦坞山脊夜驰”两条赛道，分别侧重两栖切换和夜间视野管理。对于刚接触这个体系的玩家，建议先熟悉街头冲刺的走线逻辑，再进入越野与两栖赛道。</p>
+        </div>
+      </section>
+
+      <!-- 2. 精选内容推荐 -->
+      <section class="section" id="picks">
+        <h2 class="section-h2">今日精选赛道与条目 <span class="sub">11 月 8 日轮换</span></h2>
+        <div class="card-grid">
+          <article class="card">
+            <img src="https://picsum.photos/seed/ls-street-sprint01/400/300" alt="洛圣都街头冲刺赛道俯瞰" width="400" height="300" loading="lazy">
+            <div class="card-body">
+              <h3 class="card-title">洛圣都街头冲刺·市中心环线</h3>
+              <div class="card-tags"><span class="tag hot">今日限定</span><span class="tag">城市干道</span><span class="tag teal">走线考验</span></div>
+              <p class="card-desc">全长 4.2 公里，包含三个发卡弯和一段高架桥下穿。刹车点比常规赛道提前约 15 米，推荐使用抓地力优先的公路胎。</p>
+              <div class="card-meta"><span>热度 <strong>9.6</strong></span><span>最佳纪录 02:18.4</span><span>参赛 3,204 人</span></div>
+            </div>
+          </article>
+          <article class="card">
+            <img src="https://picsum.photos/seed/perico-amphib02/400/300" alt="佩里科岛东岸两栖竞速海岸段" width="400" height="300" loading="lazy">
+            <div class="card-body">
+              <h3 class="card-title">佩里科岛东岸两栖冲刺</h3>
+              <div class="card-tags"><span class="tag hot">本周新增</span><span class="tag">两栖切换</span><span class="tag teal">载具切换</span></div>
+              <p class="card-desc">陆地段 2.1 公里后进入浅滩，需要换乘两栖载具完成最后 1.4 公里。切换点前的加速是否保留，直接影响最终排名。</p>
+              <div class="card-meta"><span>热度 <strong>9.2</strong></span><span>最佳纪录 03:01.7</span><span>参赛 2,876 人</span></div>
+            </div>
+          </article>
+          <article class="card">
+            <img src="https://picsum.photos/seed/hawick-night03/400/300" alt="好麦坞山脊夜间赛道灯光" width="400" height="300" loading="lazy">
+            <div class="card-body">
+              <h3 class="card-title">好麦坞山脊夜驰</h3>
+              <div class="card-tags"><span class="tag hot">本周新增</span><span class="tag">夜间赛道</span><span class="tag teal">视野管理</span></div>
+              <p class="card-desc">夜间山地路段，弯道多且照明不足。建议调高车灯亮度并降低下压力，以换取更稳定的出弯牵引力。</p>
+              <div class="card-meta"><span>热度 <strong>8.9</strong></span><span>最佳纪录 02:44.0</span><span>参赛 1,955 人</span></div>
+            </div>
+          </article>
+          <article class="card">
+            <img src="https://picsum.photos/seed/endurance-ring04/400/300" alt="洛圣都环城耐力赛长直道" width="400" height="300" loading="lazy">
+            <div class="card-body">
+              <h3 class="card-title">洛圣都环城耐力赛·六圈制</h3>
+              <div class="card-tags"><span class="tag">耐力赛</span><span class="tag hot">高倍率</span><span class="tag teal">轮胎策略</span></div>
+              <p class="card-desc">六圈总长约 26 公里。第三圈进站换胎的时机是分水岭，硬胎跑满四圈的车手通常在最后两圈被软胎车手追近。</p>
+              <div class="card-meta"><span>热度 <strong>8.7</strong></span><span>最佳完赛 18:32.5</span><span>参赛 1,420 人</span></div>
+            </div>
+          </article>
+          <article class="card">
+            <img src="https://picsum.photos/seed/desert-dirt05/400/300" alt="沙漠越野路线沙丘段" width="400" height="300" loading="lazy">
+            <div class="card-body">
+              <h3 class="card-title">沙漠越野·沙丘连环坡</h3>
+              <div class="card-tags"><span class="tag teal">越野</span><span class="tag">悬挂调校</span><span class="tag">沙地</span></div>
+              <p class="card-desc">连续七个沙丘坡段，悬挂行程不足会导致落地失控。推荐将悬挂调软两格、胎压降低 0.2，以换取落地稳定性。</p>
+              <div class="card-meta"><span>热度 <strong>8.5</strong></span><span>最佳纪录 02:56.8</span><span>参赛 1,632 人</span></div>
+            </div>
+          </article>
+          <article class="card">
+            <img src="https://picsum.photos/seed/tune-garage06/400/300" alt="载具调校车库界面" width="400" height="300" loading="lazy">
+            <div class="card-body">
+              <h3 class="card-title">卡林·福多 GT 赛道调校方案</h3>
+              <div class="card-tags"><span class="tag hot">调校热门</span><span class="tag">齿轮比</span><span class="tag teal">下压力</span></div>
+              <p class="card-desc">针对市中心环线的短直道特性，将最终传动比调高 0.15，下压力前 6 后 4，牺牲极速换取出弯响应，单圈可提升约 0.8 秒。</p>
+              <div class="card-meta"><span>热度 <strong>9.0</strong></span><span>适用赛道 3 条</span><span>收藏 1,102 次</span></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- 3. 最新更新 -->
+      <section class="section" id="updates">
+        <h2 class="section-h2">最新更新与动态 <span class="sub">截至 11 月 8 日</span></h2>
+        <ul class="update-list">
+          <li><span class="time">今天 09:30</span><span class="name">市中心环线</span><span class="brief">今日限定赛道已上线，倍率提升至 2.5 倍，持续至 23:59。</span></li>
+          <li><span class="time">今天 08:15</span><span class="name">佩里科岛两栖</span><span class="brief">两栖切换判定范围扩大 2 米，浅滩进入点更宽容。</span></li>
+          <li><span class="time">昨天 21:10</span><span class="name">好麦坞山脊夜驰</span><span class="brief">夜间照明补丁上线，中段三处弯道新增路灯模型。</span></li>
+          <li><span class="time">昨天 18:40</span><span class="name">环城耐力赛</span><span class="brief">本周六圈制完赛人数突破 1,400，硬胎策略占比升至 62%。</span></li>
+          <li><span class="time">11 月 6 日</span><span class="name">越野沙丘连环坡</span><span class="brief">沙地摩擦系数微调，落地后接加速的抓地力恢复更快。</span></li>
+          <li><span class="time">11 月 5 日</span><span class="name">调校工坊</span><span class="brief">新增卡林·福多 GT 第三套预设方案，适配短直道赛道。</span></li>
+          <li><span class="time">11 月 4 日</span><span class="name">冬季越野赛</span><span class="brief">报名通道开启，11 月 10 日截止，限定泥地与雪地混合路线。</span></li>
+          <li><span class="time">11 月 3 日</span><span class="name">速通规则</span><span class="brief">新增“载具切换冷却”判定，两栖赛道切换超过 4 秒开始计时惩罚。</span></li>
+          <li><span class="time">11 月 2 日</span><span class="name">洛圣都街头冲刺</span><span class="brief">高架桥下穿段新增临时路障，走线需相应调整。</span></li>
+          <li><span class="time">11 月 1 日</span><span class="name">周榜结算</span><span class="brief">十月最后一周榜单结算，街头冲刺平均圈速提升 1.2 秒。</span></li>
+        </ul>
+      </section>
+
+      <!-- 4. 分类入口 -->
+      <section class="section" id="categories">
+        <h2 class="section-h2">赛道分类入口 <span class="sub">按类型查找</span></h2>
+        <div class="cat-grid">
+          <a href="#picks" class="cat-item"><div class="cat-name">街头冲刺</div><div class="cat-sub">城市走线</div></a>
+          <a href="#picks" class="cat-item"><div class="cat-name">两栖竞速</div><div class="cat-sub">陆海切换</div></a>
+          <a href="#picks" class="cat-item"><div class="cat-name">环城耐力</div><div class="cat-sub">多圈策略</div></a>
+          <a href="#picks" class="cat-item"><div class="cat-name">越野路线</div><div class="cat-sub">沙地泥地</div></a>
+          <a href="#deep" class="cat-item"><div class="cat-name">载具调校</div><div class="cat-sub">齿轮悬挂</div></a>
+          <a href="#guide" class="cat-item"><div class="cat-name">速通规则</div><div class="cat-sub">判定与计时</div></a>
+          <a href="#ranking" class="cat-item"><div class="cat-name">竞速榜单</div><div class="cat-sub">周榜与纪录</div></a>
+          <a href="#news" class="cat-item"><div class="cat-name">赛事资讯</div><div class="cat-sub">更新与公告</div></a>
+        </div>
+      </section>
+
+      <!-- 5. 深度解析 -->
+      <section class="section" id="deep">
+        <h2 class="section-h2">深度解析：赛道类型与调校逻辑</h2>
+        <div class="deep">
+          <h3>街头冲刺的走线优先级</h3>
+          <p>城市干道赛道的共同特征是直道短、弯角密，且路面附着力变化频繁。以市中心环线为例，三个发卡弯的入弯速度直接决定单圈成绩，而高架桥下穿段的路面接缝容易导致后轮短暂失去抓地。实际驾驶中，应当把刹车点整体提前，用更早的入弯换取弯心速度，而不是追求晚刹车。轮胎选择上，抓地力优先的公路胎比半热熔胎更稳定，因为城市赛道很难让半热熔胎维持工作温度。</p>
+          <h3>两栖竞速的切换窗口</h3>
+          <p>两栖赛道的核心变量不是单一载具的速度，而是切换载具所消耗的时间。佩里科岛东岸两栖冲刺的陆地段与浅滩段之间有一个约 40 米的过渡区，玩家可以在这里完成载具切换。切换过早会丢失陆地段最后一段的加速惯性，切换过晚则进入水域后速度骤降。经过多次实测，在过渡区前 15 米开始减速并触发切换，落地后立刻满油门，总耗时最短。速通规则中新增的“切换冷却”判定，意味着连续切换载具会被额外计时，因此单次切换的精准度比切换次数更重要。</p>
+          <ul>
+            <li><strong>耐力赛轮胎策略：</strong>六圈制下，硬胎跑四圈 + 软胎跑两圈的组合总时间通常优于全程软胎，因为软胎在第三圈之后衰减明显。</li>
+            <li><strong>越野悬挂设定：</strong>沙丘连环坡段需要悬挂行程余量，调软两格可减少落地弹跳，但会牺牲铺装路面的响应速度。</li>
+            <li><strong>夜间赛道视野：</strong>好麦坞山脊夜驰的照明不足段集中在 1.2 至 2.0 公里，建议将车灯亮度调至最高，并适当降低下压力以稳定车身。</li>
+          </ul>
+          <h3>载具调校的取舍原则</h3>
+          <p>调校没有唯一最优解，只有针对赛道的取舍。短直道赛道优先出弯响应，应当提高最终传动比、降低下压力；长直道赛道优先极速，应当降低传动比、提高下压力以稳定高速变线。卡林·福多 GT 在市中心的调校方案，本质是把极速让渡给出弯加速，这与环城耐力赛的调校方向几乎相反。理解这一点，比记住某一组具体数值更重要。</p>
+        </div>
+      </section>
+
+      <!-- 6. 体验指南 -->
+      <section class="section" id="guide">
+        <h2 class="section-h2">体验指南：从哪条赛道开始</h2>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div class="step-body"><h4>先跑街头冲刺熟悉基础走线</h4><p>市中心环线的弯角类型齐全，适合建立刹车点与入弯节奏的基本感觉，建议完成至少五圈再换赛道。</p></div>
+          </div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div class="step-body"><h4>用越野路线检验悬挂调校理解</h4><p>沙丘连环坡会放大悬挂设定的影响，跑完两轮就能直观感受到软硬差异，比看数值说明更有效。</p></div>
+          </div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div class="step-body"><h4>进入两栖竞速练习切换节奏</h4><p>先在非计时模式反复练习过渡区切换，把切换耗时压到 2 秒以内，再参加限定高倍率赛事。</p></div>
+          </div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div class="step-body"><h4>挑战环城耐力赛检验综合策略</h4><p>六圈制对轮胎管理和进站时机要求高，建议在熟悉前三种赛道之后再用耐力赛冲击榜单。</p></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 7. FAQ -->
+      <section class="section" id="faq">
+        <h2 class="section-h2">常见问答</h2>
+        <details class="faq-item">
+          <summary>每日大赛的赛道一般几点轮换？</summary>
+          <div class="faq-body">每日轮换在北京时间上午 09:30 前后完成，当日限定高倍率赛道同时上线，持续到当晚 23:59。轮换后前一日的赛道记录仍保留在历史榜单中。</div>
+        </details>
+        <details class="faq-item">
+          <summary>两栖竞速和普通越野路线有什么区别？</summary>
+          <div class="faq-body">两栖竞速强制在赛程中切换载具，核心考验切换窗口的选择；越野路线全程使用同一载具，核心是悬挂与胎压设定。两者对调校的侧重完全不同。</div>
+        </details>
+        <details class="faq-item">
+          <summary>第一次接触每日大赛，从哪条赛道开始比较好？</summary>
+          <div class="faq-body">建议从洛圣都街头冲刺·市中心环线开始。这条赛道弯角类型齐全、路面附着力稳定，适合建立基础的刹车点判断，之后再进入越野或两栖赛道。</div>
+        </details>
+        <details class="faq-item">
+          <summary>环城耐力赛的进站换胎时机怎么判断？</summary>
+          <div class="faq-body">硬胎通常可以支撑四圈，第三圈末至第四圈初是常见换胎窗口。如果前两圈轮胎损耗低于预期，可以推迟到第四圈中段进站，以软胎覆盖最后两圈。</div>
+        </details>
+        <details class="faq-item">
+          <summary>载具调校中的下压力调高还是调低好？</summary>
+          <div class="faq-body">取决于赛道直道长度与弯道密度。短直道、多弯赛道调低后部下压力可换取出弯响应；长直道、高速弯赛道则需要更高下压力来保证稳定性。没有绝对的好坏。</div>
+        </details>
+        <details class="faq-item">
+          <summary>速通规则里的载具切换冷却是什么？</summary>
+          <div class="faq-body">这是 11 月 3 日新增的判定：两栖赛道上，如果单次载具切换耗时超过 4 秒，超出部分会按每秒 0.5 秒计入总成绩。目的是鼓励精准切换而非频繁尝试。</div>
+        </details>
+      </section>
+
+      <!-- 8. 用户评论 -->
+      <section class="section" id="comments">
+        <h2 class="section-h2">玩家评论 <span class="sub">11 月 8 日采集</span></h2>
+        <div class="comments-grid">
+          <div class="comment"><div class="c-head"><span class="c-name">湾岸线人</span><span class="c-time">今天 10:22</span></div><div class="c-text">市中心环线那个高架桥下穿段是真的阴间，改路障之后我第一圈直接撞墙，第二圈提前刹车才过。</div></div>
+          <div class="comment"><div class="c-head"><span class="c-name">佩里科常驻</span><span class="c-time">今天 09:48</span></div><div class="c-text">两栖切换判定扩大之后舒服多了，之前浅滩边缘老是切不出来，现在容错好很多。</div></div>
+          <div class="comment"><div class="c-head"><span class="c-name">轮胎管理师</span><span class="c-time">今天 09:05</span></div><div class="c-text">环城耐力赛硬胎跑四圈的策略确实稳，但前提是前三圈不能推太狠，不然第四圈就守不住了。</div></div>
+          <div class="comment"><div class="c-head"><span class="c-name">夜驰阿杰</span><span class="c-time">昨天 23:40</span></div><div class="c-text">好麦坞山脊加了路灯之后好跑不少，但 1.5 公里那个右弯还是看不清路肩，建议自己调车灯亮度。</div></div>
+          <div class="comment"><div class="c-head"><span class="c-name">沙丘老手</span><span class="c-time">昨天 22:18</span></div><div class="c-text">沙丘连环坡悬挂软两格是对的，我试过硬悬挂，落地直接弹起来失去方向，调软之后稳得像换了辆车。</div></div>
+          <div class="comment"><div class="c-head"><span class="c-name">福多车主</span><span class="c-time">昨天 20:55</span></div><div class="c-text">福多 GT 那套短直道调校确实有用，出弯响应快了不少，就是直道尾速掉得肉疼。</div></div>
+          <div class="comment"><div class="c-head"><span class="c-name">键盘车神</span><span class="c-time">昨天 19:30</span></div><div class="c-text">我觉得两栖赛道切换冷却有点严，4 秒其实很容易超，新手基本一超一个准。</div></div>
+          <div class="comment"><div class="c-head"><span class="c-name">发卡弯杀手</span><span class="c-time">昨天 18:12</span></div><div class="c-text">市中心环线最佳纪录 2 分 18 秒是怎么跑出来的，我卡在 2 分 22 秒两天了，求走线图。</div></div>
+          <div class="comment"><div class="c-head"><span class="c-name">泥地爱好者</span><span class="c-time">11 月 6 日</span></div><div class="c-text">冬季越野赛报名了，泥地混合路线比纯沙地有意思，就是胎压设定还得重新试。</div></div>
+          <div class="comment"><div class="c-head"><span class="c-name">榜单观察员</span><span class="c-time">11 月 5 日</span></div><div class="c-text">十月最后一周街头冲刺平均圈速快了 1.2 秒，感觉是路障调整后大家走线都变了。</div></div>
+          <div class="comment"><div class="c-head"><span class="c-name">调校工坊常客</span><span class="c-time">11 月 4 日</span></div><div class="c-text">下压力前 6 后 4 这套方案在短直道确实好用，但换到环城耐力赛就完全不行，还是得看赛道。</div></div>
+          <div class="comment"><div class="c-head"><span class="c-name">两栖新人</span><span class="c-time">11 月 3 日</span></div><div class="c-text">第一次跑佩里科岛东岸，过渡区切换慢了快 6 秒，罚时之后名次直接掉出前二十。</div></div>
+          <div class="comment"><div class="c-head"><span class="c-name">洛圣都夜猫</span><span class="c-time">11 月 2 日</span></div><div class="c-text">夜间赛道视野管理比调校重要，车灯调好之后同样的车能快两秒，亲测。</div></div>
+          <div class="comment"><div class="c-head"><span class="c-name">耐力赛钉子户</span><span class="c-time">11 月 1 日</span></div><div class="c-text">六圈制硬胎四圈软胎两圈是主流，但我试过软胎三圈硬胎三圈，后段稳定性更好，适合保守跑法。</div></div>
+        </div>
+      </section>
+
+      <!-- 9. 相关资讯 -->
+      <section class="section" id="news">
+        <h2 class="section-h2">相关资讯</h2>
+        <div class="news-list">
+          <article class="news-item">
+            <img src="https://picsum.photos/seed/winter-offroad07/600/400" alt="冬季越野赛泥地混合路线示意图" width="600" height="400" loading="lazy">
+            <div class="news-body">
+              <h4>冬季越野赛报名开启，泥地混合路线 11 月 10 日截止</h4>
+              <div class="n-date">2026-11-04</div>
+              <p>本次限定路线包含三段泥地和一段雪地，悬挂设定与胎压建议与常规沙丘路线有明显差异。</p>
+            </div>
+          </article>
+          <article class="news-item">
+            <img src="https://picsum.photos/seed/switch-rule08/600/400" alt="两栖切换冷却判定规则界面" width="600" height="400" loading="lazy">
+            <div class="news-body">
+              <h4>速通规则新增载具切换冷却判定，超 4 秒开始计时惩罚</h4>
+              <div class="n-date">2026-11-03</div>
+              <p>两栖赛道单次切换超过 4 秒的部分按每秒 0.5 秒计入总成绩，影响佩里科岛东岸等赛道的排名策略。</p>
+            </div>
+          </article>
+          <article class="news-item">
+            <img src="https://picsum.photos/seed/hawick-light09/600/400" alt="好麦坞山脊夜间赛道新增路灯" width="600" height="400" loading="lazy">
+            <div class="news-body">
+              <h4>好麦坞山脊夜驰照明补丁上线，中段三处弯道新增路灯</h4>
+              <div class="n-date">2026-11-07</div>
+              <p>1.2 至 2.0 公里路段的照明条件改善，但路肩辨识度仍需依赖车灯亮度调节。</p>
+            </div>
+          </article>
+          <article class="news-item">
+            <img src="https://picsum.photos/seed/endurance-stats10/600/400" alt="环城耐力赛轮胎策略统计图" width="600" height="400" loading="lazy">
+            <div class="news-body">
+              <h4>环城耐力赛硬胎策略占比升至 62%，完赛人数突破 1,400</h4>
+              <div class="n-date">2026-11-07</div>
+              <p>六圈制下硬胎四圈加软胎两圈成为主流选择，第三圈末进站窗口的争夺更激烈。</p>
+            </div>
+          </article>
+          <article class="news-item">
+            <img src="https://picsum.photos/seed/futo-preset11/600/400" alt="卡林福多GT调校预设界面" width="600" height="400" loading="lazy">
+            <div class="news-body">
+              <h4>调校工坊新增卡林·福多 GT 短直道预设方案</h4>
+              <div class="n-date">2026-11-05</div>
+              <p>最终传动比与下压力组合针对市中心环线等短直道赛道调整，单圈理论提升约 0.8 秒。</p>
+            </div>
+          </article>
+          <article class="news-item">
+            <img src="https://picsum.photos/seed/street-roadblock12/600/400" alt="市中心高架桥下穿段新增路障" width="600" height="400" loading="lazy">
+            <div class="news-body">
+              <h4>市中心环线高架桥下穿段新增临时路障，走线需提前调整</h4>
+              <div class="n-date">2026-11-02</div>
+              <p>路障设置在出弯后的直道入口，刹车点需要相应提前约 15 米，对当日限定赛成绩影响明显。</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- 10. 相关推荐 -->
+      <section class="section" id="recommend">
+        <h2 class="section-h2">延伸方向推荐</h2>
+        <div class="rec-tags">
+          <a href="#deep">齿轮比调整逻辑</a>
+          <a href="#deep">悬挂行程与落地稳定</a>
+          <a href="#guide">两栖切换节奏训练</a>
+          <a href="#picks">夜间赛道车灯亮度设置</a>
+          <a href="#faq">耐力赛进站窗口判断</a>
+          <a href="#picks">沙地胎压设定对照</a>
+          <a href="#news">冬季泥地路线预告</a>
+          <a href="#ranking">周榜短直道纪录汇总</a>
+        </div>
+      </section>
+
+      <!-- 11. 补充：热门榜单 -->
+      <section class="section" id="ranking">
+        <h2 class="section-h2">本周热门赛道榜单 <span class="sub">按参赛热度排序</span></h2>
+        <ol class="rank-list">
+          <li><span class="r-name">洛圣都街头冲刺·市中心环线</span><span class="r-score">9.6</span></li>
+          <li><span class="r-name">佩里科岛东岸两栖冲刺</span><span class="r-score">9.2</span></li>
+          <li><span class="r-name">卡林·福多 GT 短直道调校</span><span class="r-score">9.0</span></li>
+          <li><span class="r-name">好麦坞山脊夜驰</span><span class="r-score">8.9</span></li>
+          <li><span class="r-name">洛圣都环城耐力赛·六圈制</span><span class="r-score">8.7</span></li>
+          <li><span class="r-name">沙漠越野·沙丘连环坡</span><span class="r-score">8.5</span></li>
+          <li><span class="r-name">冬季越野赛泥地混合路线</span><span class="r-score">8.3</span></li>
+        </ol>
+      </section>
+
+    </main>
+
+    <!-- 右辅助栏 -->
+    <aside class="col-right">
+      <div class="aside-box">
+        <h3>今日热榜</h3>
+        <ul class="hot-list">
+          <li><span class="h-idx">1</span><a href="#picks" class="h-name">市中心环线限定赛</a><span class="h-val">3,204 人</span></li>
+          <li><span class="h-idx">2</span><a href="#picks" class="h-name">佩里科岛两栖冲刺</a><span class="h-val">2,876 人</span></li>
+          <li><span class="h-idx">3</span><a href="#picks" class="h-name">好麦坞山脊夜驰</a><span class="h-val">1,955 人</span></li>
+          <li><span class="h-idx">4</span><a href="#picks" class="h-name">沙丘连环坡越野</a><span class="h-val">1,632 人</span></li>
+          <li><span class="h-idx">5</span><a href="#picks" class="h-name">环城耐力赛六圈</a><span class="h-val">1,420 人</span></li>
+        </ul>
+      </div>
+      <div class="aside-box">
+        <h3>更新流</h3>
+        <ul class="update-stream">
+          <li><span class="us-time">今天 09:30</span> <span class="us-name">市中心环线</span> 限定倍率上线</li>
+          <li><span class="us-time">今天 08:15</span> <span class="us-name">两栖判定</span> 切换范围扩大 2 米</li>
+          <li><span class="us-time">昨天 21:10</span> <span class="us-name">好麦坞山脊</span> 照明补丁上线</li>
+          <li><span class="us-time">11 月 6 日</span> <span class="us-name">沙丘连环坡</span> 摩擦系数微调</li>
+          <li><span class="us-time">11 月 5 日</span> <span class="us-name">调校工坊</span> 福多 GT 预设上线</li>
+          <li><span class="us-time">11 月 4 日</span> <span class="us-name">冬季越野赛</span> 报名开启</li>
+        </ul>
+      </div>
+      <div class="aside-box">
+        <h3>调校速查</h3>
+        <ul class="hot-list">
+          <li><span class="h-idx">·</span><a href="#deep" class="h-name">短直道：传动比 +0.15</a></li>
+          <li><span class="h-idx">·</span><a href="#deep" class="h-name">沙地：悬挂软两格</a></li>
+          <li><span class="h-idx">·</span><a href="#deep" class="h-name">夜间：车灯亮度最高</a></li>
+          <li><span class="h-idx">·</span><a href="#deep" class="h-name">耐力：硬胎四圈软胎两圈</a></li>
+        </ul>
+      </div>
+    </aside>
+
+  </div>
+
+  <!-- 页尾 -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="brand">
+            <svg viewBox="0 0 32 32" aria-hidden="true" style="width:28px;height:28px;">
+              <circle cx="16" cy="16" r="15" fill="#f5a623"/>
+              <path d="M9 21 L16 7 L23 21 Z" fill="#1a1a2e"/>
+              <circle cx="16" cy="24" r="3.2" fill="#1a1a2e"/>
+            </svg>
+            <span class="brand-text" style="font-size:16px;">每日大赛<em>r星</em>官网</span>
+          </div>
+          <p>聚焦开放世界每日挑战赛道，整理街头冲刺、两栖竞速、环城耐力与越野路线的规则、调校与纪录。</p>
+        </div>
+        <div>
+          <h4>赛道类型</h4>
+          <ul class="footer-links">
+            <li><a href="#picks">街头冲刺</a></li>
+            <li><a href="#picks">两栖竞速</a></li>
+            <li><a href="#picks">环城耐力</a></li>
+            <li><a href="#picks">越野路线</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>调校与规则</h4>
+          <ul class="footer-links">
+            <li><a href="#deep">载具调校</a></li>
+            <li><a href="#deep">速通规则</a></li>
+            <li><a href="#faq">常见问答</a></li>
+            <li><a href="#guide">新人入门</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>社区与资讯</h4>
+          <ul class="footer-links">
+            <li><a href="#updates">最新动态</a></li>
+            <li><a href="#news">赛事资讯</a></li>
+            <li><a href="#comments">玩家评论</a></li>
+            <li><a href="#ranking">热门榜单</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 每日大赛r星官网 · 内容聚合示例</span>
+        <span>部分内容为示例数据，仅用于展示页面结构</span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+                </html>
