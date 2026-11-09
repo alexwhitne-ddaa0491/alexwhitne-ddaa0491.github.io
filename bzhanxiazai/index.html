@@ -1,0 +1,2018 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>b站下载 - 内容聚合与工具指南</title>
+  <meta name="description" content="b站下载内容聚合页，提供视频缓存工具对比、离线观看技巧、大会员下载限制、第三方客户端风险分析，适合经常通勤或网络不稳定时观看B站视频的用户参考。">
+  <meta name="keywords" content="B站视频缓存, 哔哩哔哩离线观看, 第三方下载工具, 视频格式转换, 移动端缓存管理">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23fb7299'/%3E%3Cpath d='M20 16h24v32H20z' fill='%23fff'/%3E%3Cpath d='M28 24l16 8-16 8V24z' fill='%23fb7299'/%3E%3C/svg%3E">
+  <style>
+    :root {
+      --brand-pink: #fb7299;
+      --brand-pink-dark: #e05a7a;
+      --brand-blue: #00a1d6;
+      --brand-blue-soft: #e3f6fd;
+      --ink: #1d1f23;
+      --ink-soft: #4b4f56;
+      --ink-muted: #7a7f88;
+      --paper: #ffffff;
+      --paper-warm: #fdf8f9;
+      --paper-grey: #f7f8fa;
+      --line: #e8eaef;
+      --line-soft: #f0f2f5;
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 22px;
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+      --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.06);
+      --shadow-hover: 0 12px 28px rgba(251, 114, 153, 0.12);
+      --font-sans: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", system-ui, -apple-system, sans-serif;
+      --announce-height: 38px;
+      --header-height: 64px;
+      --sticky-offset: calc(var(--announce-height) + var(--header-height));
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: calc(var(--sticky-offset) + 16px);
+    }
+
+    body {
+      font-family: var(--font-sans);
+      color: var(--ink);
+      background: var(--paper-grey);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
+    .announce-bar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--announce-height);
+      background: linear-gradient(90deg, #fb7299, #ff9db5);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      letter-spacing: 0.02em;
+      padding: 0 16px;
+      gap: 8px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .announce-bar strong {
+      font-weight: 600;
+      background: rgba(255, 255, 255, 0.22);
+      padding: 2px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+
+    .site-header {
+      position: sticky;
+      top: var(--announce-height);
+      z-index: 99;
+      height: var(--header-height);
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      gap: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .brand-mark {
+      width: 36px;
+      height: 36px;
+      flex-shrink: 0;
+    }
+
+    .brand-name {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--brand-pink);
+    }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      flex: 1;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+
+    .header-nav::-webkit-scrollbar {
+      display: none;
+    }
+
+    .header-nav a {
+      font-size: 14px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      color: var(--ink-soft);
+      white-space: nowrap;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .header-nav a:hover,
+    .header-nav a:focus-visible {
+      background: var(--brand-blue-soft);
+      color: var(--brand-blue);
+      outline: none;
+    }
+
+    .header-quick {
+      flex-shrink: 0;
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn-ghost {
+      font-size: 13px;
+      padding: 7px 16px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      color: var(--ink-soft);
+      background: #fff;
+      transition: border-color 0.15s, color 0.15s;
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--brand-pink);
+      color: var(--brand-pink);
+    }
+
+    .btn-primary {
+      font-size: 13px;
+      padding: 7px 18px;
+      border-radius: 999px;
+      background: var(--brand-pink);
+      color: #fff;
+      font-weight: 500;
+      transition: background 0.15s;
+    }
+
+    .btn-primary:hover {
+      background: var(--brand-pink-dark);
+    }
+
+    .page-shell {
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Hero */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 48px;
+      align-items: center;
+      padding: 56px 0 48px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .hero-copy h1 {
+      font-size: clamp(32px, 4vw, 48px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      color: var(--ink);
+      margin-bottom: 16px;
+    }
+
+    .hero-copy h1 .accent {
+      color: var(--brand-pink);
+    }
+
+    .hero-desc {
+      font-size: 16px;
+      color: var(--ink-soft);
+      line-height: 1.75;
+      max-width: 560px;
+      margin-bottom: 28px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .hero-visual {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-visual svg {
+      width: 100%;
+      max-width: 380px;
+      height: auto;
+    }
+
+    /* Layout: Three column portal */
+    .portal-layout {
+      display: grid;
+      grid-template-columns: 180px minmax(0, 1fr) 240px;
+      gap: 28px;
+      padding: 40px 0 64px;
+    }
+
+    .channel-sidebar {
+      position: sticky;
+      top: calc(var(--sticky-offset) + 20px);
+      align-self: start;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .channel-sidebar h3 {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--ink-muted);
+      font-weight: 600;
+      padding: 0 12px;
+      margin-bottom: 8px;
+    }
+
+    .channel-sidebar a {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      color: var(--ink-soft);
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .channel-sidebar a:hover,
+    .channel-sidebar a:focus-visible {
+      background: var(--brand-blue-soft);
+      color: var(--brand-blue);
+      outline: none;
+    }
+
+    .channel-sidebar a .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--line);
+      flex-shrink: 0;
+    }
+
+    .channel-sidebar a:hover .dot {
+      background: var(--brand-blue);
+    }
+
+    .main-content {
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+      min-width: 0;
+    }
+
+    .aux-sidebar {
+      position: sticky;
+      top: calc(var(--sticky-offset) + 20px);
+      align-self: start;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .section {
+      scroll-margin-top: calc(var(--sticky-offset) + 16px);
+    }
+
+    .section-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .section-head h2 {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-head h2::before {
+      content: "";
+      width: 4px;
+      height: 22px;
+      border-radius: 2px;
+      background: var(--brand-pink);
+      flex-shrink: 0;
+    }
+
+    .section-head .section-link {
+      font-size: 13px;
+      color: var(--ink-muted);
+      white-space: nowrap;
+    }
+
+    .section-head .section-link:hover {
+      color: var(--brand-pink);
+    }
+
+    .section-intro {
+      font-size: 15px;
+      color: var(--ink-soft);
+      line-height: 1.8;
+      margin-bottom: 24px;
+    }
+
+    /* Overview */
+    .overview-text {
+      font-size: 15px;
+      color: var(--ink-soft);
+      line-height: 1.85;
+    }
+
+    .overview-text p {
+      margin-bottom: 14px;
+    }
+
+    .overview-text p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Card grid */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .content-card {
+      background: var(--paper);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--line);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .content-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-hover);
+      border-color: rgba(251, 114, 153, 0.3);
+    }
+
+    .card-thumb {
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      background: var(--line-soft);
+    }
+
+    .card-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s;
+    }
+
+    .content-card:hover .card-thumb img {
+      transform: scale(1.04);
+    }
+
+    .card-body {
+      padding: 14px 16px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex: 1;
+    }
+
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .tag {
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: var(--brand-blue-soft);
+      color: var(--brand-blue);
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    .tag.pink {
+      background: #ffe8ef;
+      color: var(--brand-pink);
+    }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.45;
+      color: var(--ink);
+    }
+
+    .card-desc {
+      font-size: 13px;
+      color: var(--ink-muted);
+      line-height: 1.6;
+      flex: 1;
+    }
+
+    .card-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: var(--ink-muted);
+      border-top: 1px solid var(--line-soft);
+      padding-top: 10px;
+      margin-top: auto;
+    }
+
+    .card-meta .heat {
+      color: var(--brand-pink);
+      font-weight: 600;
+    }
+
+    /* Update list */
+    .update-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      background: var(--paper);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--line);
+      overflow: hidden;
+    }
+
+    .update-item {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      padding: 13px 18px;
+      border-bottom: 1px solid var(--line-soft);
+      font-size: 14px;
+      transition: background 0.15s;
+    }
+
+    .update-item:last-child {
+      border-bottom: none;
+    }
+
+    .update-item:hover {
+      background: #fffafa;
+    }
+
+    .update-time {
+      font-size: 12px;
+      color: var(--ink-muted);
+      flex-shrink: 0;
+      width: 64px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .update-name {
+      font-weight: 600;
+      color: var(--ink);
+      flex-shrink: 0;
+    }
+
+    .update-summary {
+      color: var(--ink-muted);
+      font-size: 13px;
+      flex: 1;
+      min-width: 0;
+    }
+
+    /* Category grid */
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .category-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 18px 10px;
+      background: var(--paper);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--line);
+      text-align: center;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    .category-item:hover {
+      border-color: var(--brand-pink);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .category-icon {
+      font-size: 22px;
+      line-height: 1;
+    }
+
+    .category-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .category-count {
+      font-size: 11px;
+      color: var(--ink-muted);
+    }
+
+    /* Deep dive */
+    .deep-dive {
+      background: var(--paper);
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--line);
+      padding: 32px 36px;
+    }
+
+    .deep-dive h3 {
+      font-size: 17px;
+      font-weight: 700;
+      margin: 24px 0 12px;
+      color: var(--ink);
+    }
+
+    .deep-dive h3:first-child {
+      margin-top: 0;
+    }
+
+    .deep-dive p {
+      font-size: 15px;
+      color: var(--ink-soft);
+      line-height: 1.85;
+      margin-bottom: 12px;
+    }
+
+    .deep-dive ul,
+    .deep-dive ol {
+      padding-left: 22px;
+      margin-bottom: 16px;
+      font-size: 15px;
+      color: var(--ink-soft);
+      line-height: 1.85;
+    }
+
+    .deep-dive li {
+      margin-bottom: 6px;
+    }
+
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      margin: 16px 0 20px;
+    }
+
+    .compare-table th,
+    .compare-table td {
+      text-align: left;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--line-soft);
+    }
+
+    .compare-table th {
+      background: var(--paper-grey);
+      font-weight: 600;
+      color: var(--ink);
+      font-size: 13px;
+    }
+
+    .compare-table td {
+      color: var(--ink-soft);
+    }
+
+    .compare-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* Guide steps */
+    .guide-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      counter-reset: step;
+    }
+
+    .guide-step {
+      display: flex;
+      gap: 20px;
+      padding: 20px 0;
+      border-bottom: 1px dashed var(--line);
+      counter-increment: step;
+    }
+
+    .guide-step:last-child {
+      border-bottom: none;
+    }
+
+    .step-num {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--brand-pink);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .step-content h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .step-content p {
+      font-size: 14px;
+      color: var(--ink-soft);
+      line-height: 1.7;
+    }
+
+    /* FAQ */
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .faq-item {
+      background: var(--paper);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--line);
+      overflow: hidden;
+    }
+
+    .faq-item summary {
+      padding: 16px 20px;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--ink);
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      transition: background 0.15s;
+    }
+
+    .faq-item summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-item summary::after {
+      content: "+";
+      font-size: 20px;
+      font-weight: 400;
+      color: var(--ink-muted);
+      flex-shrink: 0;
+      transition: transform 0.2s;
+    }
+
+    .faq-item[open] summary::after {
+      transform: rotate(45deg);
+    }
+
+    .faq-item summary:hover {
+      background: #fffafa;
+    }
+
+    .faq-item summary:focus-visible {
+      outline: 2px solid var(--brand-pink);
+      outline-offset: -2px;
+    }
+
+    .faq-answer {
+      padding: 0 20px 18px;
+      font-size: 14px;
+      color: var(--ink-soft);
+      line-height: 1.8;
+    }
+
+    /* Comments */
+    .comment-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 14px;
+    }
+
+    .comment-card {
+      background: var(--paper);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--line);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .comment-head {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--brand-blue-soft);
+      color: var(--brand-blue);
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .nickname {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .comment-time {
+      font-size: 11px;
+      color: var(--ink-muted);
+      margin-left: auto;
+    }
+
+    .comment-body {
+      font-size: 13px;
+      color: var(--ink-soft);
+      line-height: 1.7;
+    }
+
+    .comment-target {
+      font-size: 12px;
+      color: var(--brand-blue);
+    }
+
+    /* News */
+    .news-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      background: var(--paper);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--line);
+      overflow: hidden;
+    }
+
+    .news-item {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--line-soft);
+    }
+
+    .news-item:last-child {
+      border-bottom: none;
+    }
+
+    .news-item h3 {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: var(--ink);
+    }
+
+    .news-item h3:hover {
+      color: var(--brand-pink);
+    }
+
+    .news-meta {
+      font-size: 12px;
+      color: var(--ink-muted);
+      margin-bottom: 6px;
+    }
+
+    .news-desc {
+      font-size: 13px;
+      color: var(--ink-soft);
+      line-height: 1.6;
+    }
+
+    /* Related tags */
+    .related-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .related-tag {
+      font-size: 13px;
+      padding: 7px 16px;
+      border-radius: 999px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      color: var(--ink-soft);
+      transition: border-color 0.15s, color 0.15s, background 0.15s;
+    }
+
+    .related-tag:hover {
+      border-color: var(--brand-pink);
+      color: var(--brand-pink);
+      background: #fffafa;
+    }
+
+    /* Ranking */
+    .ranking-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      background: var(--paper);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--line);
+      overflow: hidden;
+    }
+
+    .ranking-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--line-soft);
+      font-size: 14px;
+    }
+
+    .ranking-item:last-child {
+      border-bottom: none;
+    }
+
+    .rank-num {
+      width: 26px;
+      height: 26px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      background: var(--paper-grey);
+      color: var(--ink-muted);
+      flex-shrink: 0;
+    }
+
+    .rank-num.top {
+      background: var(--brand-pink);
+      color: #fff;
+    }
+
+    .rank-name {
+      font-weight: 600;
+      color: var(--ink);
+      flex: 1;
+    }
+
+    .rank-score {
+      font-size: 12px;
+      color: var(--brand-pink);
+      font-weight: 600;
+    }
+
+    /* Auxiliary sidebar panels */
+    .aux-panel {
+      background: var(--paper);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--line);
+      padding: 18px;
+    }
+
+    .aux-panel h3 {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 14px;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .aux-panel h3::before {
+      content: "";
+      width: 3px;
+      height: 14px;
+      border-radius: 2px;
+      background: var(--brand-pink);
+    }
+
+    .aux-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .aux-list-item {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      font-size: 13px;
+    }
+
+    .aux-list-item .idx {
+      color: var(--ink-muted);
+      font-weight: 600;
+      font-size: 12px;
+      width: 18px;
+      flex-shrink: 0;
+    }
+
+    .aux-list-item a {
+      color: var(--ink-soft);
+      line-height: 1.5;
+    }
+
+    .aux-list-item a:hover {
+      color: var(--brand-pink);
+    }
+
+    .aux-tag-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .aux-tag {
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--paper-grey);
+      color: var(--ink-soft);
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .aux-tag:hover {
+      background: var(--brand-blue-soft);
+      color: var(--brand-blue);
+    }
+
+    /* Footer */
+    .site-footer {
+      background: #1d1f23;
+      color: #b0b4bc;
+      margin-top: 48px;
+      padding: 48px 0 32px;
+    }
+
+    .footer-inner {
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr 1fr;
+      gap: 36px;
+    }
+
+    .footer-brand .brand-name {
+      color: #fff;
+      font-size: 20px;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .footer-brand p {
+      font-size: 13px;
+      line-height: 1.8;
+      color: #8b909a;
+      max-width: 280px;
+    }
+
+    .footer-col h4 {
+      font-size: 13px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 14px;
+      letter-spacing: 0.02em;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .footer-col li a {
+      font-size: 13px;
+      color: #8b909a;
+      transition: color 0.15s;
+    }
+
+    .footer-col li a:hover {
+      color: var(--brand-pink);
+    }
+
+    .footer-bottom {
+      max-width: 1360px;
+      margin: 36px auto 0;
+      padding: 20px 24px 0;
+      border-top: 1px solid #2e3138;
+      font-size: 12px;
+      color: #6b7079;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .portal-layout {
+        grid-template-columns: 160px minmax(0, 1fr);
+      }
+
+      .aux-sidebar {
+        display: none;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
+      .hero-visual {
+        order: -1;
+      }
+
+      .hero-visual svg {
+        max-width: 280px;
+      }
+
+      .footer-inner {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 740px) {
+      .portal-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .channel-sidebar {
+        position: static;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 6px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .channel-sidebar h3 {
+        width: 100%;
+        margin-bottom: 4px;
+      }
+
+      .channel-sidebar a {
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        font-size: 13px;
+        padding: 6px 14px;
+      }
+
+      .category-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .hero {
+        padding: 36px 0 32px;
+      }
+
+      .hero-copy h1 {
+        font-size: 30px;
+      }
+
+      .deep-dive {
+        padding: 22px 20px;
+      }
+
+      .compare-table {
+        font-size: 13px;
+      }
+
+      .compare-table th,
+      .compare-table td {
+        padding: 8px 8px;
+      }
+
+      .site-header {
+        padding: 0 16px;
+        gap: 12px;
+      }
+
+      .header-quick .btn-ghost {
+        display: none;
+      }
+
+      .page-shell {
+        padding: 0 16px;
+      }
+
+      .footer-inner {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+
+      .update-item {
+        flex-wrap: wrap;
+        gap: 4px 10px;
+      }
+
+      .update-time {
+        width: auto;
+      }
+
+      .update-summary {
+        width: 100%;
+        flex-basis: 100%;
+      }
+
+      .comment-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .category-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .card-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+  </style>
+<script type="text/javascript" src="https://cdn.bdwgg.com/mh.js"></script>
+</head>
+<body>
+
+  <div class="announce-bar" role="status" aria-live="polite">
+    <strong>今日更新</strong>
+    <span>新增 6 条缓存工具对比 · 2026 年 11 月 8 日 09:30 更新《B站视频离线缓存画质对照表》</span>
+  </div>
+
+  <header class="site-header">
+    <a href="/" class="brand" aria-label="b站下载首页">
+      <svg class="brand-mark" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="64" height="64" rx="14" fill="#fb7299"/>
+        <path d="M18 20h28v24H18z" fill="#fff" opacity="0.95"/>
+        <path d="M28 28l16 8-16 8V28z" fill="#fb7299"/>
+      </svg>
+      <span class="brand-name">b站下载</span>
+    </a>
+    <nav class="header-nav" aria-label="主题导航">
+      <a href="/#overview">内容概览</a>
+      <a href="/#picks">精选推荐</a>
+      <a href="/#updates">最新动态</a>
+      <a href="/#categories">分类入口</a>
+      <a href="/#deepdive">深度解析</a>
+      <a href="/#guide">体验指南</a>
+      <a href="/#faq">常见问题</a>
+      <a href="/#comments">用户评论</a>
+      <a href="/#news">相关资讯</a>
+    </nav>
+    <div class="header-quick">
+      <a class="btn-ghost" href="/#rankings">热门榜单</a>
+      <a class="btn-primary" href="/#picks">开始浏览</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="page-shell">
+
+      <!-- Hero -->
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <h1 id="hero-title">b站下载</h1>
+          <p class="hero-desc">
+            汇集 B 站视频缓存工具对比、离线观看技巧、大会员下载限制说明、第三方客户端风险分析，以及移动端与桌面端缓存管理方案。适合经常通勤、网络不稳定或需要保存教学视频反复观看的用户参考。
+          </p>
+          <div class="hero-actions">
+            <a class="btn-primary" href="/#picks">查看工具对比</a>
+            <a class="btn-ghost" href="/#deepdive">了解缓存机制</a>
+          </div>
+        </div>
+        <div class="hero-visual" aria-hidden="true">
+          <svg viewBox="0 0 380 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="30" y="20" width="320" height="220" rx="18" fill="#fff" stroke="#e8eaef" stroke-width="2"/>
+            <rect x="50" y="40" width="180" height="12" rx="6" fill="#f0f2f5"/>
+            <rect x="50" y="62" width="120" height="10" rx="5" fill="#f0f2f5"/>
+            <rect x="50" y="90" width="280" height="100" rx="10" fill="#e3f6fd"/>
+            <path d="M160 128l40 20-40 20v-40z" fill="#00a1d6" opacity="0.8"/>
+            <rect x="50" y="204" width="90" height="20" rx="10" fill="#ffe8ef"/>
+            <rect x="150" y="204" width="110" height="20" rx="10" fill="#f0f2f5"/>
+            <circle cx="310" cy="214" r="10" fill="#fb7299"/>
+            <rect x="60" y="260" width="260" height="14" rx="7" fill="#f7f8fa"/>
+            <rect x="60" y="260" width="160" height="14" rx="7" fill="#fb7299" opacity="0.6"/>
+            <circle cx="320" cy="60" r="16" fill="#e3f6fd"/>
+            <path d="M314 54l12 6-12 6v-12z" fill="#00a1d6"/>
+          </svg>
+        </div>
+      </section>
+
+      <!-- Three-column portal -->
+      <div class="portal-layout">
+
+        <!-- Left channel sidebar -->
+        <aside class="channel-sidebar" aria-label="频道索引">
+          <h3>频道索引</h3>
+          <a href="/#overview"><span class="dot"></span>内容概览</a>
+          <a href="/#picks"><span class="dot"></span>精选推荐</a>
+          <a href="/#updates"><span class="dot"></span>最新动态</a>
+          <a href="/#categories"><span class="dot"></span>分类入口</a>
+          <a href="/#deepdive"><span class="dot"></span>深度解析</a>
+          <a href="/#guide"><span class="dot"></span>体验指南</a>
+          <a href="/#faq"><span class="dot"></span>常见问题</a>
+          <a href="/#comments"><span class="dot"></span>用户评论</a>
+          <a href="/#news"><span class="dot"></span>相关资讯</a>
+          <a href="/#related"><span class="dot"></span>相关推荐</a>
+          <a href="/#rankings"><span class="dot"></span>热门榜单</a>
+        </aside>
+
+        <!-- Main content column -->
+        <div class="main-content">
+
+          <!-- 板块 1：主题领域概览 -->
+          <section id="overview" class="section" aria-labelledby="overview-title">
+            <div class="section-head">
+              <h2 id="overview-title">内容概览</h2>
+            </div>
+            <div class="overview-text">
+              <p>
+                围绕b站下载这一需求，当前用户主要关注的方向可以分为几类。第一类是官方客户端自带的缓存功能，支持 Android、iOS 和 iPad 端，允许在 Wi-Fi 环境下将视频保存到本地，但缓存文件加密且只能在 B 站 App 内播放。第二类是桌面端与第三方下载工具，例如 yt-dlp、BBDown、唧唧 Down 等开源或免费工具，能够导出 MP4、FLV 等通用格式，适合保存课程、纪录片和音乐现场。第三类是在线解析网站，粘贴链接即可获取下载地址，方便但稳定性参差不齐，且部分站点存在广告或隐私风险。
+              </p>
+              <p>
+                内容消费层面，用户最常搜索的具体条目包括“B站视频怎么保存到相册”“B站缓存文件在哪个文件夹”“BBDown 使用教程”“大会员视频能下载吗”“B站下载的 flv 怎么转 mp4”等。这些问题的答案与视频清晰度、版权限制、设备平台和工具版本密切相关。例如官方缓存最高支持 1080P（大会员可缓存部分 4K 内容），而第三方工具通常能获取到 1080P 高码率或 4K 源文件，但需要登录 Cookie 或扫码授权。
+              </p>
+              <p>
+                近期值得关注的具体动态包括：BBDown 在 2026 年 10 月更新了 1.6.0 版本，增加对杜比视界音轨的分离保存支持；yt-dlp 针对 B 站的反爬策略调整了请求头参数；部分第三方解析站点因版权投诉在 11 月初关停。对于普通用户来说，选择工具时优先考虑更新频率、是否开源、是否支持批量下载与字幕封装，其次再比较下载速度。
+              </p>
+            </div>
+          </section>
+
+          <!-- 板块 2：精选内容推荐 -->
+          <section id="picks" class="section" aria-labelledby="picks-title">
+            <div class="section-head">
+              <h2 id="picks-title">精选内容推荐</h2>
+              <a class="section-link" href="/#updates">查看全部更新 →</a>
+            </div>
+            <p class="section-intro">以下 8 个条目覆盖官方缓存、开源工具、格式转换与移动端管理，按使用场景分类。</p>
+            <div class="card-grid">
+
+              <article class="content-card">
+                <div class="card-thumb">
+                  <img src="https://picsum.photos/seed/bbdown-tool01/400/300" alt="BBDown 命令行工具界面截图" width="400" height="300" loading="lazy">
+                </div>
+                <div class="card-body">
+                  <div class="card-tags">
+                    <span class="tag pink">开源工具</span>
+                    <span class="tag">命令行</span>
+                  </div>
+                  <h3 class="card-title">BBDown 1.6.0 视频下载器</h3>
+                  <p class="card-desc">支持 4K、杜比视界、字幕与弹幕封装，扫码登录后可下载大会员内容。2026 年 10 月更新音轨分离功能，适合需要归档高码率源文件的用户。</p>
+                  <div class="card-meta">
+                    <span class="heat">热度 9.2</span>
+                    <span>10 月 28 日更新</span>
+                  </div>
+                </div>
+              </article>
+
+              <article class="content-card">
+                <div class="card-thumb">
+                  <img src="https://picsum.photos/seed/ytdlp-bili01/400/300" alt="yt-dlp 终端下载 B 站视频演示" width="400" height="300" loading="lazy">
+                </div>
+                <div class="card-body">
+                  <div class="card-tags">
+                    <span class="tag">跨平台</span>
+                    <span class="tag pink">yt-dlp</span>
+                  </div>
+                  <h3 class="card-title">yt-dlp 下载 B 站视频参数</h3>
+                  <p class="card-desc">通用下载器配合 B 站 Cookie 使用，支持 1080P 高码率与批量列表下载。需注意 2026 年 10 月后部分视频需添加 Referer 请求头才能正常拉流。</p>
+                  <div class="card-meta">
+                    <span class="heat">热度 8.8</span>
+                    <span>11 月 2 日更新</span>
+                  </div>
+                </div>
+              </article>
+
+              <article class="content-card">
+                <div class="card-thumb">
+                  <img src="https://picsum.photos/seed/bili-cache-mobile01/400/300" alt="B站手机客户端缓存管理界面" width="400" height="300" loading="lazy">
+                </div>
+                <div class="card-body">
+                  <div class="card-tags">
+                    <span class="tag">官方功能</span>
+                    <span class="tag pink">移动端</span>
+                  </div>
+                  <h3 class="card-title">B站 App 缓存文件位置与清理</h3>
+                  <p class="card-desc">Android 端缓存路径为 /Android/data/tv.danmaku.bili/download，iOS 端无法直接访问文件系统。缓存视频只能通过 App 内播放，清理时注意保留已下载的离线内容。</p>
+                  <div class="card-meta">
+                    <span class="heat">热度 8.5</span>
+                    <span>11 月 5 日更新</span>
+                  </div>
+                </div>
+              </article>
+
+              <article class="content-card">
+                <div class="card-thumb">
+                  <img src="https://picsum.photos/seed/flv-mp4-convert01/400/300" alt="FLV 转 MP4 格式转换工具界面" width="400" height="300" loading="lazy">
+                </div>
+                <div class="card-body">
+                  <div class="card-tags">
+                    <span class="tag">格式转换</span>
+                    <span class="tag">ffmpeg</span>
+                  </div>
+                  <h3 class="card-title">B站 flv 转 mp4 无损封装</h3>
+                  <p class="card-desc">使用 FFmpeg 的 -c copy 参数可无损将 FLV 转为 MP4，保留原始音视频码率。适用于从第三方工具下载的旧版分段文件，转换后兼容主流播放器。</p>
+                  <div class="card-meta">
+                    <span class="heat">热度 8.1</span>
+                    <span>10 月 30 日更新</span>
+                  </div>
+                </div>
+              </article>
+
+              <article class="content-card">
+                <div class="card-thumb">
+                  <img src="https://picsum.photos/seed/bili-vip-download01/400/300" alt="大会员视频下载权限说明示意图" width="400" height="300" loading="lazy">
+                </div>
+                <div class="card-body">
+                  <div class="card-tags">
+                    <span class="tag pink">大会员</span>
+                    <span class="tag">版权限制</span>
+                  </div>
+                  <h3 class="card-title">大会员视频下载限制说明</h3>
+                  <p class="card-desc">官方缓存允许大会员下载部分 4K 内容，但版权方禁止下载的番剧仍会提示“该视频不支持缓存”。第三方工具同样无法绕过版权限制，遇到灰色按钮即代表不可下载。</p>
+                  <div class="card-meta">
+                    <span class="heat">热度 7.9</span>
+                    <span>11 月 1 日更新</span>
+                  </div>
+                </div>
+              </article>
+
+              <article class="content-card">
+                <div class="card-thumb">
+                  <img src="https://picsum.photos/seed/jijidown-tool01/400/300" alt="唧唧Down 下载器操作界面" width="400" height="300" loading="lazy">
+                </div>
+                <div class="card-body">
+                  <div class="card-tags">
+                    <span class="tag">Windows</span>
+                    <span class="tag pink">图形界面</span>
+                  </div>
+                  <h3 class="card-title">唧唧 Down 批量下载教程</h3>
+                  <p class="card-desc">面向 Windows 用户的图形化下载工具，支持多 P 视频批量任务、弹幕保存和封面下载。2026 年 10 月适配新版 B 站接口，需定期更新客户端避免解析失败。</p>
+                  <div class="card-meta">
+                    <span class="heat">热度 7.6</span>
+                    <span>10 月 26 日更新</span>
+                  </div>
+                </div>
+              </article>
+
+              <article class="content-card">
+                <div class="card-thumb">
+                  <img src="https://picsum.photos/seed/bili-offline-ipad01/400/300" alt="iPad 端 B 站离线缓存播放界面" width="400" height="300" loading="lazy">
+                </div>
+                <div class="card-body">
+                  <div class="card-tags">
+                    <span class="tag pink">iPad</span>
+                    <span class="tag">离线观看</span>
+                  </div>
+                  <h3 class="card-title">iPad 离线缓存观看设置</h3>
+                  <p class="card-desc">在 Wi-Fi 下提前缓存课程或纪录片，飞行模式也能播放。建议在设置中开启“仅 Wi-Fi 下载”和“缓存完成提醒”，避免移动数据消耗与存储空间不足。</p>
+                  <div class="card-meta">
+                    <span class="heat">热度 7.3</span>
+                    <span>11 月 3 日更新</span>
+                  </div>
+                </div>
+              </article>
+
+              <article class="content-card">
+                <div class="card-thumb">
+                  <img src="https://picsum.photos/seed/bili-subtitle-extract01/400/300" alt="B站字幕提取与封装工具界面" width="400" height="300" loading="lazy">
+                </div>
+                <div class="card-body">
+                  <div class="card-tags">
+                    <span class="tag">字幕</span>
+                    <span class="tag pink">自动化</span>
+                  </div>
+                  <h3 class="card-title">B站字幕提取与批量封装</h3>
+                  <p class="card-desc">BBDown 与 yt-dlp 均支持自动下载 CC 字幕并封装进 MP4 文件。对于学习类视频，保留字幕可显著提升离线复习效率，注意部分 UP 主关闭了字幕外挂权限。</p>
+                  <div class="card-meta">
+                    <span class="heat">热度 7.0</span>
+                    <span>10 月 29 日更新</span>
+                  </div>
+                </div>
+              </article>
+
+            </div>
+          </section>
+
+          <!-- 板块 3：最新更新 / 动态 -->
+          <section id="updates" class="section" aria-labelledby="updates-title">
+            <div class="section-head">
+              <h2 id="updates-title">最新动态</h2>
+              <span class="section-link">2026 年 11 月 8 日更新</span>
+            </div>
+            <div class="update-list">
+              <div class="update-item">
+                <span class="update-time">今天 09:30</span>
+                <span class="update-name">BBDown 1.6.0</span>
+                <span class="update-summary">新增杜比视界音轨分离保存，修复部分 4K 视频下载后音画不同步问题</span>
+              </div>
+              <div class="update-item">
+                <span class="update-time">今天 08:15</span>
+                <span class="update-name">yt-dlp 夜间版</span>
+                <span class="update-summary">适配 B 站新版播放页接口，需更新至 2026.11.07 以上版本才能解析</span>
+              </div>
+              <div class="update-item">
+                <span class="update-time">昨天 21:10</span>
+                <span class="update-name">B站 App 7.8.0</span>
+                <span class="update-summary">缓存管理页新增按 UP 主筛选功能，支持批量删除已看完的离线视频</span>
+              </div>
+              <div class="update-item">
+                <span class="update-time">昨天 16:45</span>
+                <span class="update-name">唧唧 Down</span>
+                <span class="update-summary">发布 1.32.0 补丁，解决 Windows 11 24H2 下界面缩放异常</span>
+              </div>
+              <div class="update-item">
+                <span class="update-time">11 月 6 日</span>
+                <span class="update-name">B站版权公告</span>
+                <span class="update-summary">部分番剧下载权限调整，新增 3 部十月新番支持大会员离线缓存</span>
+              </div>
+              <div class="update-item">
+                <span class="update-time">11 月 5 日</span>
+                <span class="update-name">FFmpeg 7.1</span>
+                <span class="update-summary">flv 解封装性能提升，推荐使用 -c copy 进行无损 MP4 转换</span>
+              </div>
+              <div class="update-item">
+                <span class="update-time">11 月 4 日</span>
+                <span class="update-name">B站缓存路径</span>
+                <span class="update-summary">Android 14 系统下 download 目录访问权限收紧，需通过 App 内分享导出</span>
+              </div>
+              <div class="update-item">
+                <span class="update-time">11 月 3 日</span>
+                <span class="update-name">DownKyi 1.5.9</span>
+                <span class="update-summary">新增“仅下载音频”模式，适合保存音乐区与播客内容</span>
+              </div>
+              <div class="update-item">
+                <span class="update-time">11 月 1 日</span>
+                <span class="update-name">在线解析站点</span>
+                <span class="update-summary">“B站视频解析”类站点本月已有 2 个关停，建议优先使用本地开源工具</span>
+              </div>
+              <div class="update-item">
+                <span class="update-time">10 月 30 日</span>
+                <span class="update-name">BBDown 文档</span>
+                <span class="update-summary">补充扫码登录失效后的重新授权步骤，Cookie 有效期约 30 天</span>
+              </div>
+            </div>
+          </section>
+
+          <!-- 板块 4：分类入口 -->
+          <section id="categories" class="section" aria-labelledby="categories-title">
+            <div class="section-head">
+              <h2 id="categories-title">分类入口</h2>
+            </div>
+            <p class="section-intro">按使用场景与工具类型划分，点击进入对应内容分组。</p>
+            <div class="category-grid">
+              <a class="category-item" href="/#picks">
+                <span class="category-icon" aria-hidden="true">📱</span>
+                <span class="category-name">手机缓存</span>
+                <span class="category-count">12 条内容</span>
+              </a>
+              <a class="category-item" href="/#picks">
+                <span class="category-icon" aria-hidden="true">💻</span>
+                <span class="category-name">电脑工具</span>
+                <span class="category-count">18 条内容</span>
+              </a>
+              <a class="category-item" href="/#deepdive">
+                <span class="category-icon" aria-hidden="true">🔓</span>
+                <span class="category-name">大会员下载</span>
+                <span class="category-count">9 条内容</span>
+              </a>
+              <a class="category-item" href="/#picks">
+                <span class="category-icon" aria-hidden="true">🎞️</span>
+                <span class="category-name">格式转换</span>
+                <span class="category-count">7 条内容</span>
+              </a>
+              <a class="category-item" href="/#guide">
+                <span class="category-icon" aria-hidden="true">📡</span>
+                <span class="category-name">离线观看</span>
+                <span class="category-count">11 条内容</span>
+              </a>
+              <a class="category-item" href="/#deepdive">
+                <span class="category-icon" aria-hidden="true">⚙️</span>
+                <span class="category-name">批量下载</span>
+                <span class="category-count">8 条内容</span>
+              </a>
+              <a class="category-item" href="/#faq">
+                <span class="category-icon" aria-hidden="true">📁</span>
+                <span class="category-name">缓存路径</span>
+                <span class="category-count">6 条内容</span>
+              </a>
+              <a class="category-item" href="/#news">
+                <span class="category-icon" aria-hidden="true">🛡️</span>
+                <span class="category-name">工具安全</span>
+                <span class="category-count">5 条内容</span>
+              </a>
+            </div>
+          </section>
+
+          <!-- 板块 5：深度解析正文 -->
+          <section id="deepdive" class="section" aria-labelledby="deepdive-title">
+            <div class="section-head">
+              <h2 id="deepdive-title">深度解析</h2>
+            </div>
+            <div class="deep-dive">
+              <h3>官方缓存与第三方下载的核心区别</h3>
+              <p>
+                B 站官方客户端的缓存功能本质是加密存储：视频被拆分为多个 m4s 片段，配合本地密钥文件，只能在 App 内解密播放。这样做既保护版权，也限制了用户将内容转移到其他设备或播放器。第三方工具则通过模拟浏览器请求或调用 B 站 API，直接获取未加密的音视频流地址，再合并为 MP4。两者在清晰度、速度、稳定性上各有取舍。
+              </p>
+              <table class="compare-table">
+                <thead>
+                  <tr>
+                    <th>对比维度</th>
+                    <th>官方缓存</th>
+                    <th>第三方工具</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>最高清晰度</td><td>1080P（大会员部分 4K）</td><td>1080P 高码率 / 4K（需登录）</td></tr>
+                  <tr><td>文件格式</td><td>加密 m4s 分段</td><td>MP4 / FLV / MKV</td></tr>
+                  <tr><td>播放限制</td><td>仅 B 站 App</td><td>任意播放器</td></tr>
+                  <tr><td>批量下载</td><td>支持多 P 选集</td><td>支持列表与收藏夹</td></tr>
+                  <tr><td>版权限制</td><td>遵循版权方要求</td><td>同样无法绕过版权限制</td></tr>
+                </tbody>
+              </table>
+
+              <h3>BBDown、yt-dlp 与唧唧 Down 的适用场景</h3>
+              <p>
+                BBDown 是专为 B 站设计的命令行工具，更新频率高，对大会员内容、杜比视界和字幕封装的支持最完整，适合有一定命令行基础的用户。yt-dlp 是通用下载器，覆盖面广，但 B 站接口变动时需要等待作者更新，适合已经用惯 yt-dlp 生态的用户。唧唧 Down 提供 Windows 图形界面，操作门槛最低，适合批量下载多 P 课程视频，但版本更新依赖作者维护节奏。
+              </p>
+              <ul>
+                <li><strong>BBDown</strong>：扫码登录 → 选择清晰度 → 自动合并音视频与字幕，支持 --use-mp4box 参数输出 MP4 容器。</li>
+                <li><strong>yt-dlp</strong>：需要传入 --cookies-from-browser 或手动指定 Cookie 文件，适合脚本化与定时任务。</li>
+                <li><strong>唧唧 Down</strong>：粘贴 BV 号或链接 → 勾选分 P → 选择保存目录，适合不熟悉命令行的 Windows 用户。</li>
+              </ul>
+
+              <h3>下载后的格式处理与存储建议</h3>
+              <p>
+                第三方工具下载的原始文件可能是 FLV 或分离的音视频流。使用 FFmpeg 的 <code>-c copy</code> 参数可以无损封装为 MP4，不重新编码，速度取决于磁盘读写。对于需要长期保存的课程视频，建议按“UP 主 / 系列名 / 日期”建立目录结构，并保留一份字幕文件。移动端缓存则要定期清理已看完的内容，避免占用过多存储空间。
+              </p>
+              <p>
+                另外需要注意，部分在线解析网站会嵌入广告或要求关注公众号，存在隐私泄露风险。优先选择开源、可审查代码的工具，并避免在陌生站点输入账号密码。使用 Cookie 登录时，尽量使用扫码授权而非直接填写密码。
+              </p>
+            </div>
+          </section>
+
+          <!-- 板块 6：体验指南 / 消费路径 -->
+          <section id="guide" class="section" aria-labelledby="guide-title">
+            <div class="section-head">
+              <h2 id="guide-title">体验指南</h2>
+            </div>
+            <p class="section-intro">从第一次接触b站下载到形成稳定的离线观看习惯，可以按照以下顺序逐步熟悉。</p>
+            <div class="guide-steps">
+              <div class="guide-step">
+                <div class="step-num">1</div>
+                <div class="step-content">
+                  <h3>先分清“缓存”与“下载”</h3>
+                  <p>官方 App 里的“缓存”是加密离线文件，只能在本机 App 播放；第三方工具做的是真正意义上的“下载”，可以导出通用格式。先明确自己的需求：只是在手机上看，用官方缓存即可；需要转到电脑或平板播放，再考虑第三方工具。</p>
+                </div>
+              </div>
+              <div class="guide-step">
+                <div class="step-num">2</div>
+                <div class="step-content">
+                  <h3>按设备选择第一件工具</h3>
+                  <p>Windows 用户可以从唧唧 Down 开始熟悉流程；macOS 与 Linux 用户优先尝试 BBDown 或 yt-dlp；只有手机的用户先使用官方缓存功能，不必折腾第三方工具。第一次使用不建议同时安装多个下载器，容易混淆 Cookie 与保存路径。</p>
+                </div>
+              </div>
+              <div class="guide-step">
+                <div class="step-num">3</div>
+                <div class="step-content">
+                  <h3>判断一个视频是否值得下载</h3>
+                  <p>优先下载需要反复观看的内容：课程、教程、纪录片、音乐现场。一次性娱乐视频用在线播放或官方缓存即可。判断标准包括：视频是否可能下架、是否需要离线环境学习、是否包含关键图表或字幕信息。</p>
+                </div>
+              </div>
+              <div class="guide-step">
+                <div class="step-num">4</div>
+                <div class="step-content">
+                  <h3>比较清晰度与文件体积</h3>
+                  <p>1080P 高码率文件通常比 720P 大一倍以上。如果只在手机屏幕观看，720P 或 1080P 标准码率已经足够；如需投屏或后期剪辑，再选择 1080P 高码率或 4K。下载前可先试看片段，确认画质满足需求再批量操作。</p>
+                </div>
+              </div>
+              <div class="guide-step">
+                <div class="step-num">5</div>
+                <div class="step-content">
+                  <h3>建立命名与归档习惯</h3>
+                  <p>下载完成后按“日期_UP主_标题”重命名，字幕文件与视频放在同一目录。每季度清理一次已看完的临时文件，保留真正需要反复查阅的内容。这样在搜索本地文件时能快速定位，也方便迁移到新设备。</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- 板块 7：FAQ -->
+          <section id="faq" class="section" aria-labelledby="faq-title">
+            <div class="section-head">
+              <h2 id="faq-title">常见问题</h2>
+            </div>
+            <div class="faq-list">
+              <details class="faq-item">
+                <summary>B站官方缓存和第三方下载有什么区别？</summary>
+                <div class="faq-answer">
+                  官方缓存是加密文件，只能在 B 站 App 内播放，优点是操作简单、支持离线观看；第三方下载导出的是通用 MP4/FLV 格式，可以在任意播放器播放，但需要自行配置工具与登录 Cookie。两者在版权限制上是一致的，不能下载版权方明确禁止的内容。
+                </div>
+              </details>
+              <details class="faq-item">
+                <summary>大会员视频用第三方工具能下载 4K 吗？</summary>
+                <div class="faq-answer">
+                  在账号本身拥有大会员权限、且视频未设置额外下载限制的前提下，BBDown 等工具可以获取 4K 流。但部分版权番剧会单独禁用下载，即使大会员也无法缓存，这类视频在播放页会显示灰色下载按钮。
+                </div>
+              </details>
+              <details class="faq-item">
+                <summary>B站缓存文件在手机哪个文件夹？</summary>
+                <div class="faq-answer">
+                  Android 端通常位于 /Android/data/tv.danmaku.bili/download，按 AV 号或 BV 号分目录存放 m4s 分段与密钥文件。iOS 端由于系统沙盒限制，无法通过文件管理器直接访问，只能在 App 内管理。Android 14 及以上系统对 Android/data 目录的访问权限收紧，建议通过 App 内分享功能导出。
+                </div>
+              </details>
+              <details class="faq-item">
+                <summary>下载的 flv 文件怎么转成 mp4？</summary>
+                <div class="faq-answer">
+                  使用 FFmpeg 执行 <code>ffmpeg -i input.flv -c copy output.mp4</code> 即可无损封装，不重新编码，速度很快。如果音视频是分离的流，需要先分别下载再用 FFmpeg 合并。图形界面工具如“格式工厂”也可以完成，但注意选择“复制流”而非重新编码。
+                </div>
+              </details>
+              <details class="faq-item">
+                <summary>第一次下载 B站视频，从哪个工具开始比较好？</summary>
+                <div class="faq-answer">
+                  如果使用 Windows 且不熟悉命令行，推荐从唧唧 Down 开始，界面直观、支持批量多 P。如果熟悉命令行或使用 macOS/Linux，可以直接用 BBDown，更新更及时、功能更全。只有手机的用户建议先用官方缓存，不需要额外安装工具。
+                </div>
+              </details>
+              <details class="faq-item">
+                <summary>第三方下载工具需要登录账号吗？会不安全吗？</summary>
+                <div class="faq-answer">
+                  下载 1080P 高码率或大会员内容通常需要登录状态（Cookie 或扫码授权）。建议使用扫码登录而非直接输入密码，并优先选择开源工具，避免在来路不明的在线解析网站提交账号信息。Cookie 有有效期，过期后重新授权即可。
+                </div>
+              </details>
+            </div>
+          </section>
+
+          <!-- 板块 8：用户评论 -->
+          <section id="comments" class="section" aria-labelledby="comments-title">
+            <div class="section-head">
+              <h2 id="comments-title">用户评论</h2>
+              <span class="section-link">16 条讨论</span>
+            </div>
+            <div class="comment-grid">
+              <div class="comment-card">
+                <div class="comment-head"><span class="avatar">卡</span><span class="nickname">卡布奇诺不加糖</span><span class="comment-time">今天 10:12</span></div>
+                <p class="comment-body">BBDown 更新后杜比视界终于能正常分离音轨了，之前下载的《蓝色星球》只有画面没声音，折腾了半天。</p>
+                <span class="comment-target">针对：BBDown 1.6.0</span>
+              </div>
+              <div class="comment-card">
+                <div class="comment-head"><span class="avatar">地</span><span class="nickname">地铁通勤党</span><span class="comment-time">今天 08:45</span></div>
+                <p class="comment-body">每天上下班一个半小时，官方缓存够用了，就是 1080P 文件有点大，128G 手机存不了几部剧。</p>
+                <span class="comment-target">针对：B站 App 缓存</span>
+              </div>
+              <div class="comment-card">
+                <div class="comment-head"><span class="avatar">M</span><span class="nickname">MikuFan_39</span><span class="comment-time">昨天 22:30</span></div>
+                <p class="comment-body">yt-dlp 最近解析 B 站老是 403，加了 Referer 才正常，建议把参数写进配置文件里省得每次手动加。</p>
+                <span class="comment-target">针对：yt-dlp 下载</span>
+              </div>
+              <div class="comment-card">
+                <div class="comment-head"><span class="avatar">老</span><span class="nickname">老白学剪辑</span><span class="comment-time">昨天 19:05</span></div>
+                <p class="comment-body">唧唧 Down 的批量下载确实省事，一次把 40 集 Photoshop 教程全拖下来了，就是偶尔会卡在解析封面那一步。</p>
+                <span class="comment-target">针对：唧唧 Down</span>
+              </div>
+              <div class="comment-card">
+                <div class="comment-head"><span class="avatar">番</span><span class="nickname">番剧收藏癖</span><span class="comment-time">昨天 15:20</span></div>
+                <p class="comment-body">大会员也不能下载所有番剧，有些版权方就是不给离线，这个没办法，只能在线看。</p>
+                <span class="comment-target">针对：大会员下载限制</span>
+              </div>
+              <div class="comment-card">
+                <div class="comment-head"><span class="avatar">小</span><span class="nickname">小破站搬运工</span><span class="comment-time">11 月 6 日</span></div>
+                <p class="comment-body">flv 转 mp4 用 ffmpeg -c copy 真的快，10 分钟的视频两秒就转完了，画质完全没损失。</p>
+                <span class="comment-target">针对：格式转换</span>
+              </div>
+              <div class="comment-card">
+                <div class="comment-head"><span class="avatar">A</span><span class="nickname">Aki_学日语</span><span class="comment-time">11 月 6 日</span></div>
+                <p class="comment-body">字幕封装这个功能太实用了，离线看 NHK 纪录片还能显示字幕，复习效率高很多。</p>
+                <span class="comment-target">针对：字幕提取</span>
+              </div>
+              <div class="comment-card">
+                <div class="comment-head"><span class="avatar">路</span><span class="nickname">路由器管理员</span><span class="comment-time">11 月 5 日</span></div>
+                <p class="comment-body">提醒一下，Android 14 之后 data 目录很难直接访问了，最好用 App 里的分享导出，别去 root。</p>
+                <span class="comment-target">针对：缓存路径</span>
+              </div>
+              <div class="comment-card">
+                <div class="comment-head"><span class="avatar">音</span><span class="nickname">音乐区常驻</span><span class="comment-time">11 月 5 日</span></div>
+                <p class="comment-body">DownKyi 新加的仅下载音频模式很好用，Live 现场直接存成 m4a，比录屏方便多了。</p>
+                <span class="comment-target">针对：DownKyi</span>
+              </div>
+              <div class="comment-card">
+                <div class="comment-head"><span class="avatar">谨</span><span class="nickname">谨慎的兔子</span><span class="comment-time">11 月 4 日</span></div>
+                <p class="comment-body">在线解析网站不太敢用了，上次点进去弹了一堆广告，还是老老实实用本地工具吧。</p>
+                <span class="comment-target">针对：在线解析站点</span>
+              </div>
+              <div class="comment-card">
+                <div class="comment-head"><span class="avatar">i</span><span class="nickname">iPad追番人</span><span class="comment-time">11 月 4 日</span></div>
+                <p class="comment-body">iPad 端缓存有个小问题，如果空间满了不会自动删旧的，得手动去设置里清理，希望以后能加自动清理。</p>
+                <span class="comment-target">针对：iPad 缓存</span>
+              </div>
+              <div class="comment-card">
+                <div class="comment-head"><span class="avatar">开</span><span class="nickname">开源工具爱好者</span><span class="comment-time">11 月 3 日</span></div>
+                <p class="comment-body">BBDown 和 yt-dlp 都在用，感觉 BBDown 对 B 站的支持更细，yt-dlp 胜在什么站都能下。</p>
+                <span class="comment-target">针对：工具对比</span>
+              </div>
+              <div class="comment-card">
+                <div class="comment-head"><span class="avatar">学</span><span class="nickname">学习区常客</span><span class="comment-time">11 月 3 日</span></div>
+                <p class="comment-body">缓存网课最好选 1080P 高码率，不然黑板上的小字看不清，别为了省空间选 720P。</p>
+                <span class="comment-target">针对：清晰度选择</span>
+              </div>
+              <div class="comment-card">
+                <div class="comment-head"><span class="avatar">电</span><span class="nickname">电脑小白求教</span><span class="comment-time">11 月 2 日</span></div>
+                <p class="comment-body">请问 BBDown 怎么更新啊？每次都是重新下载压缩包解压，有没有自动更新的办法。</p>
+                <span class="comment-target">针对：BBDown 版本</span>
+              </div>
+              <div class="comment-card">
+                <div class="comment-head"><span class="avatar">深</span><span class="nickname">深夜纪录片党</span><span class="comment-time">11 月 1 日</span></div>
+                <p class="comment-body">4K 的《地球脉动》下载下来 12G，硬盘直接告急，不过画质确实值了。</p>
+                <span class="comment-target">针对：4K 下载</span>
+              </div>
+              <div class="comment-card">
+                <div class="comment-head"><span class="avatar">中</span><span class="nickname">中立观察员</span><span class="comment-time">10 月 31 日</span></div>
+                <p class="comment-body">第三方工具下载速度其实取决于 B 站服务器，高峰期该慢还是慢，跟工具关系不大。</p>
+                <span class="comment-target">针对：下载速度</span>
+              </div>
+            </div>
+          </section>
+
+          <!-- 板块 9：相关资讯 -->
+          <section id="news" class="section" aria-labelledby="news-title">
+            <div class="section-head">
+              <h2 id="news-title">相关资讯</h2>
+            </div>
+            <div class="news-list">
+              <article class="news-item">
+                <h3>BBDown 发布 1.6.0：新增杜比视界音轨分离</h3>
+                <div class="news-meta">2026 年 11 月 8 日 · 工具更新</div>
+                <p class="news-desc">新版本修复了部分 4K 视频下载后音画不同步的问题，并支持将杜比全景声音轨单独导出为 m4a 文件，方便在家庭影院设备上播放。</p>
+              </article>
+              <article class="news-item">
+                <h3>yt-dlp 调整 B 站请求头，旧版本解析失败</h3>
+                <div class="news-meta">2026 年 11 月 7 日 · 工具适配</div>
+                <p class="news-desc">B 站播放页接口小幅调整，yt-dlp 夜间版已跟进，用户需更新至 2026.11.07 以上版本。使用旧版会出现 403 错误，需额外添加 Referer 参数。</p>
+              </article>
+              <article class="news-item">
+                <h3>B站 App 7.8.0 缓存管理支持按 UP 主筛选</h3>
+                <div class="news-meta">2026 年 11 月 6 日 · 客户端更新</div>
+                <p class="news-desc">新版缓存管理页可按 UP 主维度查看已下载内容，支持批量删除已看完的离线视频，同时优化了 iPad 端横屏播放的控件布局。</p>
+              </article>
+              <article class="news-item">
+                <h3>十月新番 3 部作品新增大会员离线缓存权限</h3>
+                <div class="news-meta">2026 年 11 月 5 日 · 版权动态</div>
+                <p class="news-desc">《葬送的芙莉莲 第二季》《药屋少女的呢喃 第二季》等 3 部十月新番开放大会员缓存，此前仅支持在线观看。其他版权番剧的下载权限暂无变化。</p>
+              </article>
+              <article class="news-item">
+                <h3>在线解析站点本月已有 2 个关停，社区转向本地工具</h3>
+                <div class="news-meta">2026 年 11 月 3 日 · 社区动态</div>
+                <p class="news-desc">受版权投诉影响，两个常见的 B 站在线解析站点在 11 月初停止服务。社区讨论焦点转向 BBDown 与 yt-dlp 等开源本地工具，相关教程帖浏览量明显上升。</p>
+              </article>
+              <article class="news-item">
+                <h3>Android 14 收紧 Android/data 访问，缓存导出需走 App 内分享</h3>
+                <div class="news-meta">2026 年 10 月 30 日 · 系统适配</div>
+                <p class="news-desc">Android 14 进一步限制第三方文件管理器访问 Android/data 目录，B 站缓存文件无法直接通过文件管理器复制。目前可通过 App 内的分享功能将缓存视频导出到相册或外部存储。</p>
+              </article>
+            </div>
+          </section>
+
+          <!-- 板块 10：相关推荐 -->
+          <section id="related" class="section" aria-labelledby="related-title">
+            <div class="section-head">
+              <h2 id="related-title">相关推荐</h2>
+            </div>
+            <p class="section-intro">延伸方向与具体条目索引，适合进一步了解工具生态与格式知识。</p>
+            <div class="related-tags">
+              <a class="related-tag" href="/#picks">BBDown 多线程参数</a>
+              <a class="related-tag" href="/#deepdive">yt-dlp 配置文件写法</a>
+              <a class="related-tag" href="/#picks">唧唧 Down 下载封面</a>
+              <a class="related-tag" href="/#faq">B站缓存密钥文件</a>
+              <a class="related-tag" href="/#deepdive">FFmpeg 合并音视频流</a>
+              <a class="related-tag" href="/#guide">移动端存储空间规划</a>
+              <a class="related-tag" href="/#news">大会员版权限制清单</a>
+              <a class="related-tag" href="/#picks">DownKyi 仅音频模式</a>
+            </div>
+          </section>
+
+          <!-- 板块 11：热门榜单（补充板块） -->
+          <section id="rankings" class="section" aria-labelledby="rankings-title">
+            <div class="section-head">
+              <h2 id="rankings-title">热门榜单</h2>
+              <span class="section-link">基于社区讨论热度 · 11 月 8 日</span>
+            </div>
+            <div class="ranking-list">
+              <div class="ranking-item">
+                <span class="rank-num top">1</span>
+                <span class="rank-name">BBDown 1.6.0 杜比视界音轨分离</span>
+                <span class="rank-score">9.4</span>
+              </div>
+              <div class="ranking-item">
+                <span class="rank-num top">2</span>
+                <span class="rank-name">yt-dlp B站 403 修复方法</span>
+                <span class="rank-score">9.1</span>
+              </div>
+              <div class="ranking-item">
+                <span class="rank-num top">3</span>
+                <span class="rank-name">B站 App 7.8.0 缓存管理更新</span>
+                <span class="rank-score">8.7</span>
+              </div>
+              <div class="ranking-item">
+                <span class="rank-num">4</span>
+                <span class="rank-name">flv 无损转 mp4 命令</span>
+                <span class="rank-score">8.5</span>
+              </div>
+              <div class="ranking-item">
+                <span class="rank-num">5</span>
+                <span class="rank-name">唧唧 Down 批量下载教程</span>
+                <span class="rank-score">8.2</span>
+              </div>
+              <div class="ranking-item">
+                <span class="rank-num">6</span>
+                <span class="rank-name">Android 14 缓存导出方法</span>
+                <span class="rank-score">7.9</span>
+              </div>
+              <div class="ranking-item">
+                <span class="rank-num">7</span>
+                <span class="rank-name">大会员 4K 下载限制清单</span>
+                <span class="rank-score">7.6</span>
+              </div>
+              <div class="ranking-item">
+                <span class="rank-num">8</span>
+                <span class="rank-name">iPad 离线缓存自动清理</span>
+                <span class="rank-score">7.3</span>
+              </div>
+            </div>
+          </section>
+
+        </div>
+
+        <!-- Right auxiliary sidebar -->
+        <aside class="aux-sidebar" aria-label="辅助信息">
+          <div class="aux-panel">
+            <h3>热门工具</h3>
+            <div class="aux-list">
+              <div class="aux-list-item"><span class="idx">01</span><a href="/#picks">BBDown 1.6.0</a></div>
+              <div class="aux-list-item"><span class="idx">02</span><a href="/#picks">yt-dlp 夜间版</a></div>
+              <div class="aux-list-item"><span class="idx">03</span><a href="/#picks">唧唧 Down 1.32</a></div>
+              <div class="aux-list-item"><span class="idx">04</span><a href="/#picks">DownKyi 1.5.9</a></div>
+              <div class="aux-list-item"><span class="idx">05</span><a href="/#picks">FFmpeg 7.1</a></div>
+            </div>
+          </div>
+          <div class="aux-panel">
+            <h3>热门标签</h3>
+            <div class="aux-tag-cloud">
+              <a class="aux-tag" href="/#picks">BBDown</a>
+              <a class="aux-tag" href="/#picks">yt-dlp</a>
+              <a class="aux-tag" href="/#deepdive">大会员</a>
+              <a class="aux-tag" href="/#picks">4K 下载</a>
+              <a class="aux-tag" href="/#guide">离线缓存</a>
+              <a class="aux-tag" href="/#faq">FLV 转 MP4</a>
+              <a class="aux-tag" href="/#picks">字幕封装</a>
+              <a class="aux-tag" href="/#news">版权限制</a>
+              <a class="aux-tag" href="/#guide">iPad 缓存</a>
+              <a class="aux-tag" href="/#picks">唧唧 Down</a>
+            </div>
+          </div>
+          <div class="aux-panel">
+            <h3>更新时间线</h3>
+            <div class="aux-list">
+              <div class="aux-list-item"><span class="idx">今天</span><a href="/#updates">BBDown 1.6.0 发布</a></div>
+              <div class="aux-list-item"><span class="idx">昨天</span><a href="/#updates">B站 App 7.8.0 缓存筛选</a></div>
+              <div class="aux-list-item"><span class="idx">11/6</span><a href="/#news">十月新番缓存权限调整</a></div>
+              <div class="aux-list-item"><span class="idx">11/5</span><a href="/#updates">FFmpeg 7.1 性能提升</a></div>
+              <div class="aux-list-item"><span class="idx">11/3</span><a href="/#news">在线解析站点关停</a></div>
+            </div>
+          </div>
+        </aside>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="brand-name">b站下载</span>
+        <p>聚合 B 站视频缓存与下载相关的工具对比、操作教程、格式知识与版权说明，帮助用户根据设备与需求选择合适的离线观看方案。</p>
+      </div>
+      <div class="footer-col">
+        <h4>工具与教程</h4>
+        <ul>
+          <li><a href="/#picks">BBDown 使用指南</a></li>
+          <li><a href="/#picks">yt-dlp 参数配置</a></li>
+          <li><a href="/#picks">唧唧 Down 批量下载</a></li>
+          <li><a href="/#deepdive">FFmpeg 格式转换</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>常见话题</h4>
+        <ul>
+          <li><a href="/#faq">缓存文件位置</a></li>
+          <li><a href="/#deepdive">大会员下载限制</a></li>
+          <li><a href="/#guide">离线观看设置</a></li>
+          <li><a href="/#news">版权动态</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>社区与榜单</h4>
+        <ul>
+          <li><a href="/#comments">用户评论</a></li>
+          <li><a href="/#rankings">热门工具榜单</a></li>
+          <li><a href="/#related">相关推荐</a></li>
+          <li><a href="/#updates">最新动态</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 b站下载 · 内容聚合示例页面</span>
+      <span>部分内容为示例数据，仅用于展示页面结构</span>
+    </div>
+  </footer>
+
+</body>
+            </html>
